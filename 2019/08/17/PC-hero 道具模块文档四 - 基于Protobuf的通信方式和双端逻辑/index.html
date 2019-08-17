@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, 
+maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xxxxxxx.xxx"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unreal Engine,C++,Protobuf,网络通信,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑  Protobuf PC-hero道具消息格式 双端通信逻辑 蓝图中的调用方式   之前自己写的项目和接触过的消息通信方式都是以Json为消息格式去做，Hero项目是以Protobuf作为消息格式来进行通信，相对于Json会更小，更快一点。 Protobuf消息格式protobuf 消息格式由 【字段规则】 【字段类型】">
+<meta name="keywords" content="Unreal Engine,C++,Protobuf,网络通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑">
+<meta property="og:url" content="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/index.html">
+<meta property="og:site_name" content="Sabistian    |      Dear">
+<meta property="og:description" content="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑  Protobuf PC-hero道具消息格式 双端通信逻辑 蓝图中的调用方式   之前自己写的项目和接触过的消息通信方式都是以Json为消息格式去做，Hero项目是以Protobuf作为消息格式来进行通信，相对于Json会更小，更快一点。 Protobuf消息格式protobuf 消息格式由 【字段规则】 【字段类型】">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/26.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/27.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/28.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/29.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/30.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/31.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/32.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/33.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/36.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/34.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/35.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/37.png">
+<meta property="og:updated_time" content="2019-08-17T04:47:57.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑">
+<meta name="twitter:description" content="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑  Protobuf PC-hero道具消息格式 双端通信逻辑 蓝图中的调用方式   之前自己写的项目和接触过的消息通信方式都是以Json为消息格式去做，Hero项目是以Protobuf作为消息格式来进行通信，相对于Json会更小，更快一点。 Protobuf消息格式protobuf 消息格式由 【字段规则】 【字段类型】">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/26.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/">
+
+
+
+
+
+  <title>PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑 | Sabistian    |      Dear</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sabistian    |      Dear</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:35:04+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PC-Hero-的道具模块-四-——基于Protobuf的通信方式和双端逻辑"><a href="#PC-Hero-的道具模块-四-——基于Protobuf的通信方式和双端逻辑" class="headerlink" title="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑"></a>PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑</h1><blockquote>
+<ul>
+<li>Protobuf</li>
+<li>PC-hero道具消息格式</li>
+<li>双端通信逻辑</li>
+<li>蓝图中的调用方式</li>
+</ul>
+</blockquote>
+<p>之前自己写的项目和接触过的消息通信方式都是以Json为消息格式去做，Hero项目是以Protobuf作为消息格式来进行通信，相对于Json会更小，更快一点。</p>
+<h2 id="Protobuf"><a href="#Protobuf" class="headerlink" title="Protobuf"></a>Protobuf</h2><h3 id="消息格式"><a href="#消息格式" class="headerlink" title="消息格式"></a>消息格式</h3><p>protobuf 消息格式由 <strong>【字段规则】 【字段类型】 【标识号】</strong>构成。</p>
+<ul>
+<li>所指定的消息字段修饰符必须是如下之一:<ul>
+<li>required：一个格式良好的消息一定要含有1个这种字段。表示该值是必须要设置的；</li>
+<li>optional：消息格式中该字段可以有0个或1个值（不超过1个）。</li>
+<li>repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括0次）。重复的值的顺序会被保留。表示该值可以重复，相当于java中的List。</li>
+</ul>
+</li>
+<li>所有字段都是标量类型：两个整型（page_number和result_per_page），一个string类型（query）。当然，你也可以为字段指定其他的合成类型，包括枚举（enumerations）或其他消息类型。<a id="more"></a> 
+<h3 id="添加更多的消息类型"><a href="#添加更多的消息类型" class="headerlink" title="添加更多的消息类型"></a>添加更多的消息类型</h3><blockquote>
+<p>在一个.proto文件中可以定义多个消息类型。在定义多个相关的消息的时候，这一点特别有用——例如，如果想定义与SearchResponse消息类型对应的回复消息格式的话，你可以将它添加到相同的.proto文件中，如：</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/26.png" alt="26"></p>
+<h3 id="生成-h-和-cpp文件"><a href="#生成-h-和-cpp文件" class="headerlink" title="生成.h 和.cpp文件"></a>生成.h 和.cpp文件</h3><p>当用protocolbuffer编译器来运行.proto文件时，编译器将生成所选择语言的代码，这些代码可以操作在.proto文件中定义的消息类型，包括获取、设置字段值，将消息序列化到一个输出流中，以及从一个输入流中解析消息。<br><strong>对C++来说，编译器会为每个.proto文件生成一个.h文件和一个.cc文件，.proto文件中的每一个消息有一个对应的类。</strong></p>
+<p>具体详细使用请查阅<a href="https://developers.google.com/protocol-buffers/?hl=zh-CN" target="_blank" rel="noopener">Protocol Buffers</a></p>
+<h2 id="PC-hero道具消息格式"><a href="#PC-hero道具消息格式" class="headerlink" title="PC-hero道具消息格式"></a>PC-hero道具消息格式</h2><p>由于策划文档中的道具模块提出的功能需求，明确由3种操作，捡，丢，用。那么只需要在蓝图事件发生后向服务器发送消息，服务器在接到消息之后进行相应的业务处理，将处理结果发回客户端。也就是说，我们需要按照C-S-C的通信流程来制作自己的消息格式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package faith;</span><br><span class="line"></span><br><span class="line">message myitem_proto</span><br><span class="line">&#123;</span><br><span class="line">	required int32 item_id = <span class="number">1</span> ; 				<span class="comment">//物品Id</span></span><br><span class="line">	required int32 item_opreation = <span class="number">2</span>;			<span class="comment">//物品操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message myitem_proto_recv</span><br><span class="line">&#123;</span><br><span class="line">	required int32 item_id = <span class="number">1</span> ; 				<span class="comment">//物品Id</span></span><br><span class="line">	required int32 item_opreation = <span class="number">2</span>;			<span class="comment">//物品操作</span></span><br><span class="line">	required int32 opreation_result = <span class="number">3</span>;		<span class="comment">//操作结果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于笔者在开发初期以快速实现功能为目的。在设计上可能出于简单优先的原则..在实现的前提下会显得有点不合理0 0采用的是TCP通信方式..由于游戏是一个高实时性的通信场景，更科学应该采用C-S,S-C的UDP通信方式。</p>
+<p>在net.proto中import自己的proto，在枚举值中加入自己的消息头,运行makeflie.bat生成pb.h,pb.cc文件。将生成的文件添加到项目目录下即可.<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/27.png" alt="27"><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/28.png" alt="28"><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/29.png" alt="29"></p>
+<h2 id="双端通信逻辑"><a href="#双端通信逻辑" class="headerlink" title="双端通信逻辑"></a>双端通信逻辑</h2><p>###客户端<br>客户端发送消息，在蓝图中需要发送的时候调用发送消息的函数即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> UMyActorTest::SendMessage(int32 id, int32 operationType)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//捡起 和 丢下的操作</span></span><br><span class="line">	<span class="comment">//加血道具在我的服务器处理函数中实现</span></span><br><span class="line">	<span class="keyword">if</span> (operationType == <span class="number">0</span> || operationType == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		faith::myitem_proto sendMsg;</span><br><span class="line">		isResponse = <span class="literal">false</span>;</span><br><span class="line">		sendMsg.set_item_id(id);</span><br><span class="line">		sendMsg.set_item_opreation(operationType);</span><br><span class="line">		LogicMessageClient::GetInstance().SerialzeAndSend(&amp;sendMsg, faith::e_msgindex_c2s_myitem_operation);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//一个加技能道具 一个加速道具</span></span><br><span class="line">		<span class="keyword">if</span> (id == <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			AFaithCharacter* CharPtr = UFaithCharacterMan::GetInstance().GetMainCharacter();</span><br><span class="line">			<span class="keyword">if</span> (CharPtr) &#123;</span><br><span class="line">				faith::skill_proto_slot_count req;</span><br><span class="line">				req.set_unit_guid(FGLGameUtils::FGuid2UInt64(CharPtr-&gt;GetLogicGuid()));</span><br><span class="line">				req.set_slot_id(<span class="number">6</span>);</span><br><span class="line">				req.set_skill_count(<span class="number">1</span>);</span><br><span class="line">				LogicMessageClient::GetInstance().SerialzeAndSend(&amp;req, faith::e_msgindex_c2s_skill_slot_count);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (id == <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			faith::character_proto_character_gmorder_message msg;</span><br><span class="line">			msg.set_command_type(faith::egot_modify_unit_attr_move_speed);</span><br><span class="line">			msg.set_sub_command_type(<span class="number">0</span>);</span><br><span class="line">			msg.add_arg_int(<span class="number">300</span>);</span><br><span class="line">			LogicMessageClient::GetInstance().SerialzeAndSend(&amp;msg, faith::e_msgindex_c2s_character_gmorder_message);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (id == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			faith::myitem_proto sendMsg;</span><br><span class="line">			isResponse = <span class="literal">false</span>;</span><br><span class="line">			sendMsg.set_item_id(id);</span><br><span class="line">			sendMsg.set_item_opreation(operationType);</span><br><span class="line">			LogicMessageClient::GetInstance().SerialzeAndSend(&amp;sendMsg, faith::e_msgindex_c2s_myitem_operation);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：蓝图可调用的单例如C++有一些不同之处。.h文件下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	UFUNCTION(BlueprintCallable, Category = <span class="string">"MyFunc"</span>)</span><br><span class="line">		<span class="function"><span class="keyword">static</span> UMyActorTest* <span class="title">GetInstancePtr</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">static</span> UMyActorTest&amp; <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> UMyActorTest* Instance_;</span><br></pre></td></tr></table></figure>
+
+<p>.cpp文件下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">UMyActorTest* UMyActorTest::GetInstancePtr()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">nullptr</span> == Instance_) &#123;</span><br><span class="line">		Instance_ = NewObject&lt;UMyActorTest&gt;();</span><br><span class="line">		Instance_-&gt;AddToRoot();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Instance_;</span><br><span class="line">&#125;</span><br><span class="line">UMyActorTest&amp; UMyActorTest::GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> *GetInstancePtr();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端接收消息处：在proto文件制作、生成流程没问题的前提下。在LogicMessageClient中像填空一样case自己的消息头即可。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/30.png" alt="30"><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/31.png" alt="31"></p>
+<p>在自己定义的接收消息处理函数中，进行业务分离</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端接收消息</span></span><br><span class="line"><span class="keyword">void</span> UMyActorTest::HandleMyItemOperation(<span class="keyword">const</span> <span class="keyword">void</span> * DataPtr, int32 DataLen)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">nullptr</span> == DataPtr)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	faith::myitem_proto_recv RecvItemMsg;</span><br><span class="line">	<span class="keyword">bool</span> OK = faith::parse_msg::getInstance().ParseMessageClient(&amp;RecvItemMsg, DataPtr, DataLen);</span><br><span class="line">	<span class="keyword">if</span> (!OK)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	isResponse = <span class="literal">true</span>;</span><br><span class="line">	<span class="comment">//返回消息处理</span></span><br><span class="line">	itemCanOperation[RecvItemMsg.item_id()][RecvItemMsg.item_opreation()] = RecvItemMsg.opreation_result();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后续根据自己的业务需求设计即可。</p>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>服务器的操作流程与客户端大体相同，在logic_message_server 下接收消息，在msgproc_client文件下做业务分离。唯一不同之处需要在msg_dispatch_wrap.cpp下注册自己的消息头。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试函数注册</span></span><br><span class="line">		REGISTER_MESSAGE_C2CS(e_msgindex_c2s_myitem_operation);</span><br><span class="line">		REGISTER_MESSAGE_S2C(e_msgindex_s2c_myitem_response);</span><br></pre></td></tr></table></figure>
+
+<p>服务端的处理函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试函数</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">TestCommunication</span><span class="params">(uint32 conn_index, <span class="keyword">const</span> <span class="keyword">void</span>* data_ptr, <span class="keyword">size_t</span> data_len)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">//加载物品数据</span></span><br><span class="line">		faith::myitem_proto req;</span><br><span class="line">		faith::myitem_proto_recv res;</span><br><span class="line">		int32 unit_index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		parse_msg::getInstance().parse_clientuid_from_msg_new(data_ptr, unit_index);</span><br><span class="line">		player&amp; player_ptr = unit_man::get_instance().get_player(unit_index);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">bool</span> parseRight = parse_msg::getInstance().parse_message_new(&amp;req, data_ptr, data_len);</span><br><span class="line">		<span class="keyword">if</span> (!parseRight) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 捡道具</span></span><br><span class="line">		<span class="keyword">if</span> (req.item_opreation() == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			res.set_opreation_result(<span class="number">1</span>);</span><br><span class="line">			player_ptr.myItem[req.item_id()]++;	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//丢道具</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (req.item_opreation() == <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (player_ptr.myItem[req.item_id()] &gt; <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				res.set_opreation_result(<span class="number">1</span>);</span><br><span class="line">				player_ptr.myItem[req.item_id()]--;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				res.set_opreation_result(<span class="number">0</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//用道具</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (req.item_opreation() == <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (player_ptr.myItem.count(req.item_id()))</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (player_ptr.myItem[req.item_id()] &gt; <span class="number">0</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					FileManager fm;</span><br><span class="line">					<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;&gt;mgoodsData;</span><br><span class="line">					fm.loadCSVData(<span class="string">"G:\\hero\\hero_Project\\project\\server_shipping\\res\\csv\\MyItem.csv"</span>, mgoodsData);</span><br><span class="line"></span><br><span class="line">					<span class="comment">//获取物品属性</span></span><br><span class="line">					<span class="built_in">std</span>::<span class="built_in">string</span> useid = <span class="built_in">std</span>::to_string(req.item_id());</span><br><span class="line">					<span class="built_in">std</span>::<span class="built_in">string</span> id = mgoodsData[useid][<span class="string">"itemId"</span>];</span><br><span class="line">					</span><br><span class="line">					<span class="keyword">int</span> addHp = <span class="number">0</span>;</span><br><span class="line">					<span class="keyword">int</span> addExp = <span class="number">0</span>;</span><br><span class="line">					addHp = atoi(mgoodsData[id][<span class="string">"addHp"</span>].c_str());</span><br><span class="line">					addExp = atoi(mgoodsData[id][<span class="string">"addExp"</span>].c_str());</span><br><span class="line"></span><br><span class="line">					res.set_opreation_result(<span class="number">1</span>);</span><br><span class="line">					player_ptr.change_hp(addHp, unit_index, <span class="literal">true</span>, <span class="literal">nullptr</span>, <span class="literal">nullptr</span>, <span class="literal">true</span>);</span><br><span class="line">					player_ptr.add_exp(addExp, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">					player_ptr.myItem[req.item_id()]--;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					res.set_opreation_result(<span class="number">0</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		res.set_item_id(req.item_id());</span><br><span class="line">		res.set_item_opreation(req.item_opreation());</span><br><span class="line">		player_ptr.send_message_to_self(&amp;res, e_msgindex_s2c_myitem_response);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="蓝图中的调用方式"><a href="#蓝图中的调用方式" class="headerlink" title="蓝图中的调用方式"></a>蓝图中的调用方式</h2><p>由于笔者当时设计的是需要确认的通信协议，在发送消息后拿到消息前，存在着约0.1s的通信延迟，其实这有一点点蠢。。我们可以在选择一种蓝图-服务端，服务端-蓝图两个独立的通信方式，客户端在接收服务器发来的消息后，在C++代码中抛出事件，执行相应函数即可。<br>但是笔者在设计之初需要拿到服务器的反馈结果，采用将事件分成两部分，前半部分由业务处理-发送消息构成。后半部分由-delay0.2的方式避免通信延迟之后，拿到结果-判断是否真值-后续的业务处理。</p>
+<h3 id="useItem"><a href="#useItem" class="headerlink" title="useItem"></a>useItem</h3><p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/32.png" alt="32"><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/33.png" alt="33"></p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/36.png" alt="36"></p>
+<h3 id="PickupItem"><a href="#PickupItem" class="headerlink" title="PickupItem"></a>PickupItem</h3><p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/34.png" alt="34"><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/35.png" alt="35"></p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/37.png" alt="37"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="邱灵雨 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="邱灵雨 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 邱灵雨 的个人博客">邱灵雨</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/" title="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑">http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 邱灵雨 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unreal-Engine/" rel="tag"><i class="fa fa-tag"></i> Unreal Engine</a>
+          
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          
+            <a href="/tags/Protobuf/" rel="tag"><i class="fa fa-tag"></i> Protobuf</a>
+          
+            <a href="/tags/网络通信/" rel="tag"><i class="fa fa-tag"></i> 网络通信</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/17/PC-hero 道具模块文档三--添加物品刷新物品/" rel="next" title="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品">
+                <i class="fa fa-chevron-left"></i> PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/17/PC-hero 道具模块文档五 - 修改玩家数值/" rel="prev" title="PC-Hero 的道具模块(五) —— 修改玩家数值">
+                PC-Hero 的道具模块(五) —— 修改玩家数值 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headicon.png" alt="邱灵雨">
+            
+              <p class="site-author-name" itemprop="name">邱灵雨</p>
+              <p class="site-description motion-element" itemprop="description">灵雨既零</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sabistian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sebistian@163.com" target="_blank" title="Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5975979965/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kuai-shen-l/activities" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PC-Hero-的道具模块-四-——基于Protobuf的通信方式和双端逻辑"><span class="nav-number">1.</span> <span class="nav-text">PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Protobuf"><span class="nav-number">1.1.</span> <span class="nav-text">Protobuf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消息格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">消息格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加更多的消息类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">添加更多的消息类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成-h-和-cpp文件"><span class="nav-number">1.1.3.</span> <span class="nav-text">生成.h 和.cpp文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PC-hero道具消息格式"><span class="nav-number">1.2.</span> <span class="nav-text">PC-hero道具消息格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双端通信逻辑"><span class="nav-number">1.3.</span> <span class="nav-text">双端通信逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端"><span class="nav-number">1.3.1.</span> <span class="nav-text">服务端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图中的调用方式"><span class="nav-number">1.4.</span> <span class="nav-text">蓝图中的调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useItem"><span class="nav-number">1.4.1.</span> <span class="nav-text">useItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PickupItem"><span class="nav-number">1.4.2.</span> <span class="nav-text">PickupItem</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱灵雨</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

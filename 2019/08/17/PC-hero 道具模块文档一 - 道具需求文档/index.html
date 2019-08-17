@@ -91,7 +91,7 @@ maximum-scale=1">
 
 
 
-  <meta name="keywords" content="Markdown,Unreal Engine,C++,">
+  <meta name="keywords" content="策划文档,">
 
 
 
@@ -102,27 +102,20 @@ maximum-scale=1">
 
 
 
-<meta name="description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
-<meta name="keywords" content="Markdown,Unreal Engine,C++">
+<meta name="description" content="PC-Hero 的道具模块(一) —— 道具需求文档 新人培训流程的最后一环，制作一个可以修改玩家属性的道具。要有客户端表现，客户端图标资源的配表实现，服务器修改的数值从数据库中获取。以及基于现有系统实现功能。   物品的获得方式 客户端UI表现  道具属性 与服务器的交互   物品的获得方式 地图上放置 击杀怪物后随机掉落 升级获得 （可选）">
+<meta name="keywords" content="策划文档">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unreal Engine运行项目所需环境搭建">
-<meta property="og:url" content="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/index.html">
+<meta property="og:title" content="PC-Hero 的道具模块(一) —— 道具需求文档">
+<meta property="og:url" content="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/index.html">
 <meta property="og:site_name" content="Sabistian    |      Dear">
-<meta property="og:description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
+<meta property="og:description" content="PC-Hero 的道具模块(一) —— 道具需求文档 新人培训流程的最后一环，制作一个可以修改玩家属性的道具。要有客户端表现，客户端图标资源的配表实现，服务器修改的数值从数据库中获取。以及基于现有系统实现功能。   物品的获得方式 客户端UI表现  道具属性 与服务器的交互   物品的获得方式 地图上放置 击杀怪物后随机掉落 升级获得 （可选）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_vs.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/Unreal%20Logo.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190729130645.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/join%20EpicGame.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/cloone.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/SetUp.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC.png">
-<meta property="og:updated_time" content="2019-07-29T16:12:51.396Z">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/1.png">
+<meta property="og:updated_time" content="2019-08-17T04:47:40.464Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unreal Engine运行项目所需环境搭建">
-<meta name="twitter:description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
-<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png">
+<meta name="twitter:title" content="PC-Hero 的道具模块(一) —— 道具需求文档">
+<meta name="twitter:description" content="PC-Hero 的道具模块(一) —— 道具需求文档 新人培训流程的最后一环，制作一个可以修改玩家属性的道具。要有客户端表现，客户端图标资源的配表实现，服务器修改的数值从数据库中获取。以及基于现有系统实现功能。   物品的获得方式 客户端UI表现  道具属性 与服务器的交互   物品的获得方式 地图上放置 击杀怪物后随机掉落 升级获得 （可选）">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/1.png">
 
 
 
@@ -152,13 +145,13 @@ maximum-scale=1">
 
 
 
-  <link rel="canonical" href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/">
+  <link rel="canonical" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/">
 
 
 
 
 
-  <title>Unreal Engine运行项目所需环境搭建 | Sabistian    |      Dear</title>
+  <title>PC-Hero 的道具模块(一) —— 道具需求文档 | Sabistian    |      Dear</title>
   
 
 
@@ -295,7 +288,7 @@ maximum-scale=1">
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邱灵雨">
@@ -312,7 +305,7 @@ maximum-scale=1">
 
         
         
-          <h1 class="post-title" itemprop="name headline">Unreal Engine运行项目所需环境搭建</h1>
+          <h1 class="post-title" itemprop="name headline">PC-Hero 的道具模块(一) —— 道具需求文档</h1>
         
 
         <div class="post-meta">
@@ -324,8 +317,8 @@ maximum-scale=1">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T15:52:09+08:00">
-                2019-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:33:01+08:00">
+                2019-08-17
               </time>
             
 
@@ -347,8 +340,8 @@ maximum-scale=1">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UE4/" itemprop="url" rel="index">
-                    <span itemprop="name">UE4</span>
+                  <a href="/categories/策划文档：/" itemprop="url" rel="index">
+                    <span itemprop="name">策划文档：</span>
                   </a>
                 </span>
 
@@ -384,56 +377,36 @@ maximum-scale=1">
       
 
       
-        <p>Unreal Engine项目源码以及项目多数有<strong>C++</strong>完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。 </p>
+        <h1 id="PC-Hero-的道具模块-一-——-道具需求文档"><a href="#PC-Hero-的道具模块-一-——-道具需求文档" class="headerlink" title="PC-Hero 的道具模块(一) —— 道具需求文档"></a>PC-Hero 的道具模块(一) —— 道具需求文档</h1><p> 新人培训流程的最后一环，制作一个可以修改玩家属性的道具。要有客户端表现，客户端图标资源的配表实现，服务器修改的数值从数据库中获取。以及基于现有系统实现功能。</p>
 <blockquote>
 <ul>
-<li>Visual Studio</li>
-<li>Cppcheck </li>
-<li>Visual Assist X</li>
-<li>Unreal Engine</li>
-<li>Tortoise SVN  </li>
-<li>Reference  </li>
+<li>物品的获得方式</li>
+<li>客户端UI表现 </li>
+<li>道具属性</li>
+<li>与服务器的交互</li>
 </ul>
 </blockquote>
-<h2 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio"></a>Visual Studio</h2><p>较新引擎版本推荐使用VS2017 版，笔者的VS是2015 企业版，找到资源运行可光盘映像文件，设置好需要的环境，安装即可。<strong>注意安装时间很长，若看见Update3卡住不动不要结束进程</strong>，若是安装完成后未安装完全，在编译项目的时候修复VS即可。</p>
-<h2 id="Cppcheck"><a href="#Cppcheck" class="headerlink" title="Cppcheck"></a>Cppcheck</h2><p>Cppcheck 是一种 C/C++ 代码缺陷静态检查工具。不同于 C/C++ 编译器及很多其它分析工具，它不检查代码中的语法错误。Cppcheck 只检查<strong>编译器检查不出来的 bug 类型</strong>，其目的是检查代码中真正的错误. :)</p>
-<a id="more"></a> 
-<p><a href="http://cppcheck.net/" target="_blank" rel="noopener">下载地址</a></p>
-<p>完成安装后运行快捷方式，下面有一段简单的代码，名为file.c.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];</span><br><span class="line">	a[<span class="number">10</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过上部工具栏， 检查-文件 找到file.c,就会看见文件中的代码问题<br> <div align="center"><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png" alt="代码问题"> </div></p>
-<p><a href="https://www.cnblogs.com/lvdongjie/p/9549254.html" target="_blank" rel="noopener">更多用法</a></p>
-<h2 id="Visual-Assist-X"><a href="#Visual-Assist-X" class="headerlink" title="Visual Assist X"></a>Visual Assist X</h2><p>Visual assist 番茄助手是一个vs的插件， 主要包括智能提示、代码高亮等。 <a href="https://www.wholetomato.com/" target="_blank" rel="noopener">官方下载地址</a></p>
-<p>笔者用的是windows下破解版，在运行安装文件完成安装后，运行Vax_Paatch.exe文件，进入vs后运行插件就可看见效果了。</p>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_vs.png" alt="效果"></p>
-<p><a href="https://www.wholetomato.com/learn/getStarted" target="_blank" rel="noopener">具体用法详见</a></p>
-<h2 id="Unreal-Engine"><a href="#Unreal-Engine" class="headerlink" title="Unreal Engine"></a>Unreal Engine</h2><p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/Unreal%20Logo.png" alt="UnrealLogo"></p>
-<h3 id="克隆源码"><a href="#克隆源码" class="headerlink" title="克隆源码"></a><strong>克隆源码</strong></h3><p>UE4 引擎源码托管在 <a href="https://github.com/EpicGames" target="_blank" rel="noopener">Github</a> 上，是一个半公开的项目,想要获取代码前必须要先加入到<a href="https://github.com/EpicGames" target="_blank" rel="noopener">EpicGames organization</a>才能看到项目，加入项目需要两个账号，一个是 <a href="https://github.com/" target="_blank" rel="noopener">Github账号</a>，一个是<a href="https://www.unrealengine.com/zh-CN/" target="_blank" rel="noopener">UnrealEngine</a>开发者账号，没有的话需要先注册一下。</p>
-<ul>
-<li>首先需要<strong>关联Unreal和Github账号</strong>，注册并登录UnrealEngine开发者账号之后，在页面右上角转到个人界面，在个人界面的左边选择连接的账户菜单，然后选择GITHUB，如图。</li>
+<h2 id="物品的获得方式"><a href="#物品的获得方式" class="headerlink" title="物品的获得方式"></a><strong>物品的获得方式</strong></h2><ul>
+<li>地图上放置</li>
+<li>击杀怪物后随机掉落</li>
+<li>升级获得 （可选）<a id="more"></a> 
+<h2 id="客户端UI表现"><a href="#客户端UI表现" class="headerlink" title="客户端UI表现"></a><strong>客户端UI表现</strong></h2></li>
+<li><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/1.png" alt="1"></li>
+<li>在地图的左下角新添加1-2个道具格子，玩家获得之后通过手动或按键进行使用，默认图标灰黑色。</li>
+<li>获得之后UI自动显示道具图标。</li>
+<li>物品使用后UI按钮进入不可用状态</li>
 </ul>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190729130645.png" alt="关联账户"></p>
-<ul>
-<li>在弹出的Github授权页面中登录授权之后，Github的注册邮箱会收到一封邀请邮件，邀请你加入 EpciGames orgnization，点击 <strong>Join @EpicGames</strong> 按钮。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/join%20EpicGame.png" alt="JOIN EpciGames"></li>
+<h2 id="道具属性"><a href="#道具属性" class="headerlink" title="道具属性"></a><strong>道具属性</strong></h2><ul>
+<li>初步设计主要有两种道具，加血和减少技能冷却CD，单次性消耗道具.</li>
+<li>加血道具使用后增加血量的1/5，超出部分不算.</li>
+<li>减少技能CD道具使用后指定技能减少CD。如W-CD道具减少W技能冷却CD，未进入冷却时间时不可用。具体减少幅度了解hero技能系统之后在做决定。超出部分不算.</li>
+<li>在实现之后可考虑是否能进一步复杂化，变成可持续使用性装备，并有着更复杂的效果，如加速，对怪物造成固定伤害，眩晕等.</li>
 </ul>
-<ul>
-<li>加入成功后就可以看见引擎项目，这时候克隆到本地，若不会使用Github，需要自行去学习。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/cloone.png" alt="Clone"></li>
+<h2 id="与服务器的交互"><a href="#与服务器的交互" class="headerlink" title="与服务器的交互"></a><strong>与服务器的交互</strong></h2><ul>
+<li>对英雄血量进行地图玩家同步.</li>
+<li>修改玩家基础属性并存入数据库，如:金币，经验.</li>
+<li>更复杂的道具部分在了解现有数据库之后在考虑技术可行性.</li>
 </ul>
-<h3 id="下载第三方依赖库"><a href="#下载第三方依赖库" class="headerlink" title="下载第三方依赖库"></a><strong>下载第三方依赖库</strong></h3><p>源码克隆完成后，因为引擎依赖的第三方预编译库等等二进制文件并没有一起托管在 Github 上，需要额外下载。</p>
-<p>打开本地引擎目录，有一个 <strong>Setup 文件</strong>，Windwos 上是 Setup.bat，Mac 上是 Setup.command，Linux 上是 Setup.sh，直接双击运行会去下载对应平台的库.</p>
-<p>从4.22开始，Setup.bat,默认会下载所有平台上的依赖。完成后运行同目录下的<strong>GenerateProjectFiles.bat</strong>。</p>
-<p> <img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/SetUp.png" alt="SetUp"></p>
-<p>完成之后打开UE4.sln文件编译之后就可以使用Unreal Editor了。</p>
-<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a><strong>运行项目</strong></h3><p>新建一个游戏项目，UE4的每个项目都有一个*.uproject描述文件，这个文件中主要记载了项目的模块，各个插件的开关情况等信息，还有一个字段，EngineAssociation，这个字段描述当前工程使用的引擎版本，如果使用的是EpicLauncher 上下载的引擎创建的工程，这里的值就是 4.18, 4.20 等固定的字段，如果是使用自己源码编出来的引擎，这里的字段就是一个 GUID，这个 GUID是在自己本机上随机生成的全球唯一标识符，并且会写到系统注册表里。</p>
-<p>这里就会遇到一个问题，当美术、策划这些非程序人员拉下来项目库之后，双击运行uproject文件打开工程，这时候因为自己的本地没有{XXXXXXXXXXXX}这个GUID所对应的引擎，就会弹出一个错误提示框，提示引擎版本错误，需要重新编译工程。</p>
-<p>所以，美术和策划要想正常打开项目，就得先<strong>右键 uproject</strong>，选择 <strong>Switch Engine Version</strong>。</p>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC.png" alt="ChangeVersion"></p>
-<p>或者到 Engine-Binaries-Win64 目录下找到<strong>UnrealVersionSelector-Win64-Shipping.exe</strong> 双击运行也可.</p>
-<p>选完版本之后右键项目-&gt;Generate Visual Studio project files 生成项目<strong>.sln</strong>文件，之后调试或运行即可。</p>
-<p><a href="https://docs.unrealengine.com/zh-CN/GettingStarted/RunningUnrealEngine/index.html" target="_blank" rel="noopener">官方文档</a></p>
-<h2 id="Tortoise-SVN"><a href="#Tortoise-SVN" class="headerlink" title="Tortoise SVN"></a>Tortoise SVN</h2><p>SVN是Subversion的简称，它是一个开放的源代码版本控制系统，它提供了多人协作开发、代码存放、版本控制、权限控制的解决方案。简单来说，svn就是一套多人开发代码管理工具，实现code的服务器共享。具体用法详见<a href="https://tortoisesvn.net/index.zh.html" target="_blank" rel="noopener">帮助文档</a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://docs.unrealengine.com/en-US/index.html" target="_blank" rel="noopener">虚幻引擎文档</a><br><a href="https://wangjie.rocks/2019/01/19/ue4-basic-env/" target="_blank" rel="noopener">相关技术博客</a><br><a href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown-%E6%A5%82%E6%A9%80%E6%A8%81%E7%92%87%EE%85%9F%E7%A1%B6%E9%8E%B5%E5%AC%AA%E5%94%BD" target="_blank" rel="noopener">Markdown语法手册</a></p>
 
       
     </div>
@@ -485,7 +458,7 @@ maximum-scale=1">
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/" title="Unreal Engine运行项目所需环境搭建">http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/</a>
+          <a href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/" title="PC-Hero 的道具模块(一) —— 道具需求文档">http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -503,11 +476,7 @@ maximum-scale=1">
       
         <div class="post-tags">
           
-            <a href="/tags/Markdown/" rel="tag"><i class="fa fa-tag"></i> Markdown</a>
-          
-            <a href="/tags/Unreal-Engine/" rel="tag"><i class="fa fa-tag"></i> Unreal Engine</a>
-          
-            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+            <a href="/tags/策划文档/" rel="tag"><i class="fa fa-tag"></i> 策划文档</a>
           
         </div>
       
@@ -520,14 +489,18 @@ maximum-scale=1">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/29/MyFirstBlog/" rel="next" title="MyFirstBlog">
+                <i class="fa fa-chevron-left"></i> MyFirstBlog
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/29/MyFirstBlog/" rel="prev" title="MyFirstBlog">
-                MyFirstBlog <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/17/PC-hero 道具模块文档二--UI表现/" rel="prev" title="PC-Hero 的道具模块(二) —— UI表现">
+                PC-Hero 的道具模块(二) —— UI表现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -690,7 +663,7 @@ maximum-scale=1">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio"><span class="nav-number">1.</span> <span class="nav-text">Visual Studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cppcheck"><span class="nav-number">2.</span> <span class="nav-text">Cppcheck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Assist-X"><span class="nav-number">3.</span> <span class="nav-text">Visual Assist X</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unreal-Engine"><span class="nav-number">4.</span> <span class="nav-text">Unreal Engine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆源码"><span class="nav-number">4.1.</span> <span class="nav-text">克隆源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载第三方依赖库"><span class="nav-number">4.2.</span> <span class="nav-text">下载第三方依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行项目"><span class="nav-number">4.3.</span> <span class="nav-text">运行项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tortoise-SVN"><span class="nav-number">5.</span> <span class="nav-text">Tortoise SVN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PC-Hero-的道具模块-一-——-道具需求文档"><span class="nav-number">1.</span> <span class="nav-text">PC-Hero 的道具模块(一) —— 道具需求文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#物品的获得方式"><span class="nav-number">1.1.</span> <span class="nav-text">物品的获得方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端UI表现"><span class="nav-number">1.2.</span> <span class="nav-text">客户端UI表现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#道具属性"><span class="nav-number">1.3.</span> <span class="nav-text">道具属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与服务器的交互"><span class="nav-number">1.4.</span> <span class="nav-text">与服务器的交互</span></a></li></ol></li></ol></div>
             
 
           </div>
