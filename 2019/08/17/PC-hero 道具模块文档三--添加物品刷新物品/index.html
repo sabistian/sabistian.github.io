@@ -102,14 +102,15 @@ maximum-scale=1">
 
 
 
-<meta name="description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下 12345678A[载入关卡] --&amp;gt; B&amp;#123;配置Actor&amp;#125;B --&amp;gt;C[配置NPC]B --&amp;gt;D[配置静态物体]C --&amp;gt;E[配置刷新组]E --&amp;gt;FD --&amp;gt;F[保存关卡]F --&amp;">
+<meta name="description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下">
 <meta name="keywords" content="Unreal Engine,C++,Excel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PC-Hero 的道具模块(三) —— 静态添加物品&#x2F;杀死怪物掉落物品">
 <meta property="og:url" content="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档三--添加物品刷新物品/index.html">
 <meta property="og:site_name" content="Sabistian    |      Dear">
-<meta property="og:description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下 12345678A[载入关卡] --&amp;gt; B&amp;#123;配置Actor&amp;#125;B --&amp;gt;C[配置NPC]B --&amp;gt;D[配置静态物体]C --&amp;gt;E[配置刷新组]E --&amp;gt;FD --&amp;gt;F[保存关卡]F --&amp;">
+<meta property="og:description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/2-4.png">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/12.png">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/13.png">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/14.png">
@@ -123,11 +124,11 @@ maximum-scale=1">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/24.png">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/25.png">
 <meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/16.png">
-<meta property="og:updated_time" content="2019-08-17T04:47:50.412Z">
+<meta property="og:updated_time" content="2019-08-17T07:15:22.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PC-Hero 的道具模块(三) —— 静态添加物品&#x2F;杀死怪物掉落物品">
-<meta name="twitter:description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下 12345678A[载入关卡] --&amp;gt; B&amp;#123;配置Actor&amp;#125;B --&amp;gt;C[配置NPC]B --&amp;gt;D[配置静态物体]C --&amp;gt;E[配置刷新组]E --&amp;gt;FD --&amp;gt;F[保存关卡]F --&amp;">
-<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/12.png">
+<meta name="twitter:description" content="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品  静态添加物品 杀死怪物掉落物品   静态添加物品&amp;emsp;添加物品的基本流程如下">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/2-4.png">
 
 
 
@@ -395,36 +396,27 @@ maximum-scale=1">
 <li>杀死怪物掉落物品</li>
 </ul>
 </blockquote>
-<h2 id="静态添加物品"><a href="#静态添加物品" class="headerlink" title="静态添加物品"></a>静态添加物品</h2><p>&emsp;添加物品的基本流程如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A[载入关卡] --&gt; B&#123;配置Actor&#125;</span><br><span class="line">B --&gt;C[配置NPC]</span><br><span class="line">B --&gt;D[配置静态物体]</span><br><span class="line">C --&gt;E[配置刷新组]</span><br><span class="line">E --&gt;F</span><br><span class="line">D --&gt;F[保存关卡]</span><br><span class="line">F --&gt;G[导出配表]</span><br><span class="line">G --&gt;H[上传]</span><br></pre></td></tr></table></figure>
-
+<h2 id="静态添加物品"><a href="#静态添加物品" class="headerlink" title="静态添加物品"></a>静态添加物品</h2><p>&emsp;添加物品的基本流程如下<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/2-4.png" alt="2-4"></p>
+<a id="more"></a> 
 <h3 id="载入关卡"><a href="#载入关卡" class="headerlink" title="载入关卡"></a><strong>载入关卡</strong></h3><p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/12.png" alt="12"></p>
 <h3 id="部署NPC-静态物体"><a href="#部署NPC-静态物体" class="headerlink" title="部署NPC/静态物体"></a><strong>部署NPC/静态物体</strong></h3><blockquote>
 <p>选择关卡</p>
 </blockquote>
 <ul>
-<li><p>双击打开需要编辑个关卡，确保后续的部署操作针对该关卡进行。                </p>
-</li>
-<li><p>NPC怪物的配置需在T_Monster关卡中进行。    </p>
-</li>
-<li><p>静态物体（当前为灭龙炮和落石）的配置需在T_DarkForest_GameActor中进行。</p>
-</li>
-<li><p>被编辑的关卡需要在非锁定状态。</p>
-</li>
-<li><p>激活关卡的关卡名称会用粗体显示（选中时为黑色，未选中时为蓝色），并且可在视口的右下角看到当前编辑的关卡名称。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/13.png" alt="13"></p>
-<a id="more"></a> 
+<li>双击打开需要编辑个关卡，确保后续的部署操作针对该关卡进行。                </li>
+<li>NPC怪物的配置需在T_Monster关卡中进行。    </li>
+<li>静态物体（当前为灭龙炮和落石）的配置需在T_DarkForest_GameActor中进行。</li>
+<li>被编辑的关卡需要在非锁定状态。</li>
+<li>激活关卡的关卡名称会用粗体显示（选中时为黑色，未选中时为蓝色），并且可在视口的右下角看到当前编辑的关卡名称。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/13.png" alt="13"></li>
+</ul>
 <blockquote>
 <p>梳理世界大纲：</p>
 </blockquote>
-</li>
-<li><p>世界大纲视图中针对每个关卡中的对象会建立对应的文件夹进行整理。                </p>
-</li>
-<li><p>已锁定关卡中的对象名称为淡灰色，无法进行编辑    </p>
-</li>
-<li><p>所有部署的怪物NPC对象均需要手动规整到T_Monster文件夹中。</p>
-</li>
-<li><p>T_Monster中的子文件夹用于规划怪物NPC的部署区域/类型：</p>
 <ul>
+<li>世界大纲视图中针对每个关卡中的对象会建立对应的文件夹进行整理。                </li>
+<li>已锁定关卡中的对象名称为淡灰色，无法进行编辑    </li>
+<li>所有部署的怪物NPC对象均需要手动规整到T_Monster文件夹中。</li>
+<li>T_Monster中的子文件夹用于规划怪物NPC的部署区域/类型：<ul>
 <li>20<del>70：    区域怪物。根据在地图中分布的区域规划为20</del>70区域。        </li>
 <li>Drop：    野外掉落物，包括药水与道具。        </li>
 <li>Dryad：    树妖BOSS。        </li>
@@ -440,10 +432,8 @@ maximum-scale=1">
 <li>SeaMonster：    海怪。        </li>
 </ul>
 </li>
-<li><p>所有部署的静态对象（树木除外）均需要手动规整到T_DarkForest_GameActor文件夹中。    </p>
-</li>
-<li><p>T_DarkForest_GameActor中的子文件夹说明如下：</p>
-<ul>
+<li>所有部署的静态对象（树木除外）均需要手动规整到T_DarkForest_GameActor文件夹中。    </li>
+<li>T_DarkForest_GameActor中的子文件夹说明如下：<ul>
 <li>GameCannon：灭龙炮</li>
 <li>GameStone：落石</li>
 </ul>
@@ -779,7 +769,7 @@ maximum-scale=1">
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
