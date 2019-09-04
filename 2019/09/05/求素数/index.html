@@ -91,7 +91,7 @@ maximum-scale=1">
 
 
 
-  <meta name="keywords" content="Markdown,Unreal Engine,C++,">
+  <meta name="keywords" content="C++,Algorithm,">
 
 
 
@@ -102,27 +102,20 @@ maximum-scale=1">
 
 
 
-<meta name="description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
-<meta name="keywords" content="Markdown,Unreal Engine,C++">
+<meta name="description" content="求素数 - 试除法/筛法  题目 试除法 筛法   求素数的几种方法，与对号入座0 0。 题目  请实现一个函数，对于给定的整型参数 N，该函数能够把自然数中，小于 N 的质数，从小到大打印出来。 请实现一个函数，对于给定的整型参数 N，该函数能够从小到大，依次打印出自然数中最小的 N 个质数。   下面由浅入深来剖析这道题目。">
+<meta name="keywords" content="C++,Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unreal Engine运行项目所需环境搭建">
-<meta property="og:url" content="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/index.html">
+<meta property="og:title" content="Methods of finding prime numbers">
+<meta property="og:url" content="http://sabistian.cn/2019/09/05/求素数/index.html">
 <meta property="og:site_name" content="Sabistian    |      Dear">
-<meta property="og:description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
+<meta property="og:description" content="求素数 - 试除法/筛法  题目 试除法 筛法   求素数的几种方法，与对号入座0 0。 题目  请实现一个函数，对于给定的整型参数 N，该函数能够把自然数中，小于 N 的质数，从小到大打印出来。 请实现一个函数，对于给定的整型参数 N，该函数能够从小到大，依次打印出自然数中最小的 N 个质数。   下面由浅入深来剖析这道题目。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_vs.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/Unreal%20Logo.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190729130645.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/join%20EpicGame.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/cloone.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/SetUp.png">
-<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC.png">
-<meta property="og:updated_time" content="2019-07-29T16:12:51.396Z">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E7%B4%A0%E6%95%B0.gif">
+<meta property="og:updated_time" content="2019-09-04T18:05:28.945Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unreal Engine运行项目所需环境搭建">
-<meta name="twitter:description" content="Unreal Engine项目源码以及项目多数有C++完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。    Visual Studio Cppcheck  Visual Assist X Unreal Engine Tortoise SVN   Reference     Visual Studio较新引擎版本推荐">
-<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png">
+<meta name="twitter:title" content="Methods of finding prime numbers">
+<meta name="twitter:description" content="求素数 - 试除法/筛法  题目 试除法 筛法   求素数的几种方法，与对号入座0 0。 题目  请实现一个函数，对于给定的整型参数 N，该函数能够把自然数中，小于 N 的质数，从小到大打印出来。 请实现一个函数，对于给定的整型参数 N，该函数能够从小到大，依次打印出自然数中最小的 N 个质数。   下面由浅入深来剖析这道题目。">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E7%B4%A0%E6%95%B0.gif">
 
 
 
@@ -152,13 +145,13 @@ maximum-scale=1">
 
 
 
-  <link rel="canonical" href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/">
+  <link rel="canonical" href="http://sabistian.cn/2019/09/05/求素数/">
 
 
 
 
 
-  <title>Unreal Engine运行项目所需环境搭建 | Sabistian    |      Dear</title>
+  <title>Methods of finding prime numbers | Sabistian    |      Dear</title>
   
 
 
@@ -295,7 +288,7 @@ maximum-scale=1">
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/09/05/求素数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邱灵雨">
@@ -312,7 +305,7 @@ maximum-scale=1">
 
         
         
-          <h1 class="post-title" itemprop="name headline">Unreal Engine运行项目所需环境搭建</h1>
+          <h1 class="post-title" itemprop="name headline">Methods of finding prime numbers</h1>
         
 
         <div class="post-meta">
@@ -324,8 +317,8 @@ maximum-scale=1">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T15:52:09+08:00">
-                2019-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T01:23:09+08:00">
+                2019-09-05
               </time>
             
 
@@ -347,8 +340,8 @@ maximum-scale=1">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UE4/" itemprop="url" rel="index">
-                    <span itemprop="name">UE4</span>
+                  <a href="/categories/杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
                   </a>
                 </span>
 
@@ -384,56 +377,49 @@ maximum-scale=1">
       
 
       
-        <p>Unreal Engine项目源码以及项目多数有<strong>C++</strong>完成，在装Unreal之前，建议先完善C++编译环境，笔者环境为Win10 64位，VS为公司的2015 Enterprise版。 </p>
-<blockquote>
+        <h1 id="求素数-试除法-筛法"><a href="#求素数-试除法-筛法" class="headerlink" title="求素数 - 试除法/筛法"></a>求素数 - 试除法/筛法</h1><blockquote>
 <ul>
-<li>Visual Studio</li>
-<li>Cppcheck </li>
-<li>Visual Assist X</li>
-<li>Unreal Engine</li>
-<li>Tortoise SVN  </li>
-<li>Reference  </li>
+<li>题目</li>
+<li>试除法</li>
+<li>筛法</li>
 </ul>
 </blockquote>
-<h2 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio"></a>Visual Studio</h2><p>较新引擎版本推荐使用VS2017 版，笔者的VS是2015 企业版，找到资源运行可光盘映像文件，设置好需要的环境，安装即可。<strong>注意安装时间很长，若看见Update3卡住不动不要结束进程</strong>，若是安装完成后未安装完全，在编译项目的时候修复VS即可。</p>
-<h2 id="Cppcheck"><a href="#Cppcheck" class="headerlink" title="Cppcheck"></a>Cppcheck</h2><p>Cppcheck 是一种 C/C++ 代码缺陷静态检查工具。不同于 C/C++ 编译器及很多其它分析工具，它不检查代码中的语法错误。Cppcheck 只检查<strong>编译器检查不出来的 bug 类型</strong>，其目的是检查代码中真正的错误. :)</p>
+<p>求素数的几种方法，与对号入座0 0。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote>
+<ul>
+<li>请实现一个函数，对于给定的整型参数 N，该函数能够把自然数中，小于 N 的质数，从小到大打印出来。</li>
+<li>请实现一个函数，对于给定的整型参数 N，该函数能够从小到大，依次打印出自然数中最小的 N 个质数。</li>
+</ul>
+</blockquote>
+<p>下面由浅入深来剖析这道题目。</p>
 <a id="more"></a> 
-<p><a href="http://cppcheck.net/" target="_blank" rel="noopener">下载地址</a></p>
-<p>完成安装后运行快捷方式，下面有一段简单的代码，名为file.c.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];</span><br><span class="line">	a[<span class="number">10</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>通过上部工具栏， 检查-文件 找到file.c,就会看见文件中的代码问题<br> <div align="center"><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87.png" alt="代码问题"> </div></p>
-<p><a href="https://www.cnblogs.com/lvdongjie/p/9549254.html" target="_blank" rel="noopener">更多用法</a></p>
-<h2 id="Visual-Assist-X"><a href="#Visual-Assist-X" class="headerlink" title="Visual Assist X"></a>Visual Assist X</h2><p>Visual assist 番茄助手是一个vs的插件， 主要包括智能提示、代码高亮等。 <a href="https://www.wholetomato.com/" target="_blank" rel="noopener">官方下载地址</a></p>
-<p>笔者用的是windows下破解版，在运行安装文件完成安装后，运行Vax_Paatch.exe文件，进入vs后运行插件就可看见效果了。</p>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_vs.png" alt="效果"></p>
-<p><a href="https://www.wholetomato.com/learn/getStarted" target="_blank" rel="noopener">具体用法详见</a></p>
-<h2 id="Unreal-Engine"><a href="#Unreal-Engine" class="headerlink" title="Unreal Engine"></a>Unreal Engine</h2><p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/Unreal%20Logo.png" alt="UnrealLogo"></p>
-<h3 id="克隆源码"><a href="#克隆源码" class="headerlink" title="克隆源码"></a><strong>克隆源码</strong></h3><p>UE4 引擎源码托管在 <a href="https://github.com/EpicGames" target="_blank" rel="noopener">Github</a> 上，是一个半公开的项目,想要获取代码前必须要先加入到<a href="https://github.com/EpicGames" target="_blank" rel="noopener">EpicGames organization</a>才能看到项目，加入项目需要两个账号，一个是 <a href="https://github.com/" target="_blank" rel="noopener">Github账号</a>，一个是<a href="https://www.unrealengine.com/zh-CN/" target="_blank" rel="noopener">UnrealEngine</a>开发者账号，没有的话需要先注册一下。</p>
+<h2 id="试除法"><a href="#试除法" class="headerlink" title="试除法"></a>试除法</h2><p>　　“试除”，顾名思义，就是不断地尝试能否整除。比如要判断自然数 x 是否质数，就不断尝试小于 x 且大于 1 的自然数，只要有一个能整除，则 x 是合数；否则，x 是质数。显然，试除法是最容易想到的思路。也是很平庸的思路。但是平庸中也是要分三六九等….</p>
 <ul>
-<li>首先需要<strong>关联Unreal和Github账号</strong>，注册并登录UnrealEngine开发者账号之后，在页面右上角转到个人界面，在个人界面的左边选择连接的账户菜单，然后选择GITHUB，如图。</li>
+<li><p>Level 1<br>在试除法中，最土的做法，就是：假设要判断 x 是否为质数，就从 2 一直尝试到x-1。整除即非质数，这种做法，其效率是最差的。</p>
+</li>
+<li><p>Level 2<br>稍微想一下就知道：x 如果有（除了自身以外的）质因数，那也肯定会小于等于 x/2，所以，从 2 一直尝试到 x/2 即可。这一下子就少了一半的工作量，但依然效率不是很好。</p>
+</li>
+<li><p>Level 3<br>再仔细想一下：除了 2 以外，所有可能的质因数都是奇数。所以，就先尝试 2，然后再尝试从 3 开始一直到 x/2 的所有奇数。这一下子，工作量又少了一半。这种思路是最奇怪的..一瓶不满半瓶咣当.</p>
+</li>
+<li><p>Level 4<br>一般的程序员：从 2 一直尝试√x，就可以了。为什么只要到 √x 即可？<br>　　解释一下：<br>　　因数都是【成对】出现。比如，100的因数有：1和100，2和50，4和25，5和20，10和10。成对的因数，其中一个必然小于等于100的开平方，另一个大于等于100的开平方。至于严密的数学证明，反证法?
+　　</p>
+</li>
+<li><p>Level 5<br>按照前面的思路，先尝试 2，然后再针对 3 到 √x 的所有【奇数】进行试除，感觉面试的话这样讲就不会因为这道题被pass掉吧.差不多了就。</p>
+</li>
 </ul>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190729130645.png" alt="关联账户"></p>
-<ul>
-<li>在弹出的Github授权页面中登录授权之后，Github的注册邮箱会收到一封邀请邮件，邀请你加入 EpciGames orgnization，点击 <strong>Join @EpicGames</strong> 按钮。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/join%20EpicGame.png" alt="JOIN EpciGames"></li>
-</ul>
-<ul>
-<li>加入成功后就可以看见引擎项目，这时候克隆到本地，若不会使用Github，需要自行去学习。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/cloone.png" alt="Clone"></li>
-</ul>
-<h3 id="下载第三方依赖库"><a href="#下载第三方依赖库" class="headerlink" title="下载第三方依赖库"></a><strong>下载第三方依赖库</strong></h3><p>源码克隆完成后，因为引擎依赖的第三方预编译库等等二进制文件并没有一起托管在 Github 上，需要额外下载。</p>
-<p>打开本地引擎目录，有一个 <strong>Setup 文件</strong>，Windwos 上是 Setup.bat，Mac 上是 Setup.command，Linux 上是 Setup.sh，直接双击运行会去下载对应平台的库.</p>
-<p>从4.22开始，Setup.bat,默认会下载所有平台上的依赖。完成后运行同目录下的<strong>GenerateProjectFiles.bat</strong>。</p>
-<p> <img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/SetUp.png" alt="SetUp"></p>
-<p>完成之后打开UE4.sln文件编译之后就可以使用Unreal Editor了。</p>
-<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a><strong>运行项目</strong></h3><p>新建一个游戏项目，UE4的每个项目都有一个*.uproject描述文件，这个文件中主要记载了项目的模块，各个插件的开关情况等信息，还有一个字段，EngineAssociation，这个字段描述当前工程使用的引擎版本，如果使用的是EpicLauncher 上下载的引擎创建的工程，这里的值就是 4.18, 4.20 等固定的字段，如果是使用自己源码编出来的引擎，这里的字段就是一个 GUID，这个 GUID是在自己本机上随机生成的全球唯一标识符，并且会写到系统注册表里。</p>
-<p>这里就会遇到一个问题，当美术、策划这些非程序人员拉下来项目库之后，双击运行uproject文件打开工程，这时候因为自己的本地没有{XXXXXXXXXXXX}这个GUID所对应的引擎，就会弹出一个错误提示框，提示引擎版本错误，需要重新编译工程。</p>
-<p>所以，美术和策划要想正常打开项目，就得先<strong>右键 uproject</strong>，选择 <strong>Switch Engine Version</strong>。</p>
-<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC.png" alt="ChangeVersion"></p>
-<p>或者到 Engine-Binaries-Win64 目录下找到<strong>UnrealVersionSelector-Win64-Shipping.exe</strong> 双击运行也可.</p>
-<p>选完版本之后右键项目-&gt;Generate Visual Studio project files 生成项目<strong>.sln</strong>文件，之后调试或运行即可。</p>
-<p><a href="https://docs.unrealengine.com/zh-CN/GettingStarted/RunningUnrealEngine/index.html" target="_blank" rel="noopener">官方文档</a></p>
-<h2 id="Tortoise-SVN"><a href="#Tortoise-SVN" class="headerlink" title="Tortoise SVN"></a>Tortoise SVN</h2><p>SVN是Subversion的简称，它是一个开放的源代码版本控制系统，它提供了多人协作开发、代码存放、版本控制、权限控制的解决方案。简单来说，svn就是一套多人开发代码管理工具，实现code的服务器共享。具体用法详见<a href="https://tortoisesvn.net/index.zh.html" target="_blank" rel="noopener">帮助文档</a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://docs.unrealengine.com/en-US/index.html" target="_blank" rel="noopener">虚幻引擎文档</a><br><a href="https://wangjie.rocks/2019/01/19/ue4-basic-env/" target="_blank" rel="noopener">相关技术博客</a><br><a href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown-%E6%A5%82%E6%A9%80%E6%A8%81%E7%92%87%EE%85%9F%E7%A1%B6%E9%8E%B5%E5%AC%AA%E5%94%BD" target="_blank" rel="noopener">Markdown语法手册</a></p>
+<p>还有能优化的地方，因为没必要去算所有的奇数,比如：要判断 101 是否质数，101 的根号取整后是 10，那么，需要尝试的奇数分别是：3，5，7，9。但是你发现没有，对 9 的尝试是多余的。不能被 3 整除，必然不能被 9 整除……<br>顺着这个思路走下去，就能发现，<strong>只要尝试小于 √x 的【质数】即可。而这些质数，恰好前面已经算出来了</strong>。
+把前面计算得到的结果保存起来，用于后面试除，数字大的时候就提高了很多效率.<br>这就是<strong>用空间换时间</strong><br>欸，这样就刚刚好.需要聪明一点又不用太努力学习就可以了^_^</p>
+<h2 id="筛法"><a href="#筛法" class="headerlink" title="筛法"></a>筛法</h2><p>　　爱学习的孩子才会该会的方法.0 0。百科解释在<a href="https://zh.wikipedia.org/wiki/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95" target="_blank" rel="noopener">这里</a>, 发明人是古希腊的大刘-埃拉托斯特尼,春秋战国时他用简单的几何方法，测量出了地球的周长、地球与月亮的距离、地球与太阳的距离、赤道与黄道的夹角.结果和当代科学家算的也差不多少。要知道明朝的时候咱们还是天圆地方、天狗食月吧。。<br>言归正传：<br>　　筛法不仅仅是一种具体的方法。<strong>【筛法还是一种很普适的思想】</strong>，在处理很多复杂问题的时候，都可以看到筛法的影子。那么，筛法如何求质数，说起来很简单：<br>　　首先，2是公认最小的质数，所以，先把所有2的倍数去掉；然后剩下的那些大于2的数里面，最小的是3，所以3也是质数；然后把所有3的倍数都去掉，剩下的那些大于3的数里面，最小的是5，所以5也是质数……<br>　　上述过程不断重复，就可以把某个范围内的合数全都除去（就像被筛子筛掉一样），剩下的就是质数了。<br>　　<img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/%E7%B4%A0%E6%95%B0.gif" alt="求素数"><br>　　其实很明显，筛法的效率是高于试除法的，试除法的效率并不是以n为底数的算法，筛法则是以n为底数的算法.</p>
+<h3 id="如何确定质数的分布范围"><a href="#如何确定质数的分布范围" class="headerlink" title="如何确定质数的分布范围"></a>如何确定质数的分布范围</h3><p>对于题目1，这个自然不是问题。因为在题目1中，质数的分布范围就是 N，已经给出了，很好办。<br>对于需求2, 素数的分布是有规律的.在离散数学里好像是学过一个素数定理还是欧拉函数的东西，会有求范围n之内的素数个数的公式，如：x/ln(x)。假设要估计1,000,000以内有多少质数，用该公式算出是72,382个，而实际有78,498个，误差约8个百分点。该公式的特点是：估算的范围越大，偏差率越小。<br>有了素数定理，就可以根据要打印的质数个数，反推出这些质数分布在多大的范围内。因为这个质数分布公式有一定的误差（通常小于15%）。为了保险起见，把反推出的素数分布范围再稍微扩大15%，应该就足够了。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化的话有两种思路，<strong>空间优化</strong>和<strong>时间优化</strong>。这么筛的话需要很大的空间把所有的数都保存起来，空间优化就可以用标志位的思想去存，比如1-100中的质数，我只需知道哪个被筛掉了，0/1来作为标记，最后通过下标获值，这样把数字从int 变成 bool 就变成原空间的1/4，进一步换成纯bit STL中的BiteMap去存，就变成了bool所占空间的1/8.这样的话空间就优化了很多.</p>
+<p>时间优化就相对复杂一点，在编程上加以处理，思想就是：<strong>使每个合数只被自己最小的质数因子标记一次</strong>。也就是线性筛法（又名欧拉筛），代码如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i = <span class="number">2</span>; i &lt; N;++i)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (!check[i])</span><br><span class="line">  &#123;</span><br><span class="line">    prime[tot++] = i; <span class="comment">//筛法每次拿最小的值</span></span><br><span class="line">  &#125;             </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> j = <span class="number">0</span>; j &lt; tot; ++j)  <span class="comment">//筛数</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (i * prime[j] &gt; N)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    check[i*prime[j]] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">break</span>; <span class="comment">// 如果再往后，prime[j] 就不是 i*prime[j] 的最小质因子了，所以不需要继续了</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就这个break，稍微有一点绕。思考下，按照代码逻辑prime[j]是i的最小质因子，如果向后继续算下去，任何质数与i的乘积，也就是新的i*prime[j]，它的最小质因子也一定是i，而不是新的prime[j]，打破了算法的规则。</p>
+<p>由于所有的数字只被标记了一次，所以时间复杂度为O(N).</p>
+<p><a href="https://program-think.blogspot.com/2011/12/prime-algorithm-1.html?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">参考博客</a></p>
+<p>男篮世界杯没了呀0 0..周琦这事估计你这一辈子都别想跑…</p>
 
       
     </div>
@@ -485,7 +471,7 @@ maximum-scale=1">
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/" title="Unreal Engine运行项目所需环境搭建">http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/</a>
+          <a href="http://sabistian.cn/2019/09/05/求素数/" title="Methods of finding prime numbers">http://sabistian.cn/2019/09/05/求素数/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -503,11 +489,9 @@ maximum-scale=1">
       
         <div class="post-tags">
           
-            <a href="/tags/Markdown/" rel="tag"><i class="fa fa-tag"></i> Markdown</a>
-          
-            <a href="/tags/Unreal-Engine/" rel="tag"><i class="fa fa-tag"></i> Unreal Engine</a>
-          
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          
+            <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
           
         </div>
       
@@ -520,15 +504,15 @@ maximum-scale=1">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/08/17/蓝图中的C++编程(一)--蓝图调用C++函数&C++调用蓝图/" rel="next" title="蓝图中的C++ 编程">
+                <i class="fa fa-chevron-left"></i> 蓝图中的C++ 编程
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/29/MyFirstBlog/" rel="prev" title="MyFirstBlog">
-                MyFirstBlog <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -690,7 +674,7 @@ maximum-scale=1">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio"><span class="nav-number">1.</span> <span class="nav-text">Visual Studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cppcheck"><span class="nav-number">2.</span> <span class="nav-text">Cppcheck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Assist-X"><span class="nav-number">3.</span> <span class="nav-text">Visual Assist X</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unreal-Engine"><span class="nav-number">4.</span> <span class="nav-text">Unreal Engine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆源码"><span class="nav-number">4.1.</span> <span class="nav-text">克隆源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载第三方依赖库"><span class="nav-number">4.2.</span> <span class="nav-text">下载第三方依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行项目"><span class="nav-number">4.3.</span> <span class="nav-text">运行项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tortoise-SVN"><span class="nav-number">5.</span> <span class="nav-text">Tortoise SVN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#求素数-试除法-筛法"><span class="nav-number">1.</span> <span class="nav-text">求素数 - 试除法/筛法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#试除法"><span class="nav-number">1.2.</span> <span class="nav-text">试除法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#筛法"><span class="nav-number">1.3.</span> <span class="nav-text">筛法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何确定质数的分布范围"><span class="nav-number">1.3.1.</span> <span class="nav-text">如何确定质数的分布范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.3.2.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
