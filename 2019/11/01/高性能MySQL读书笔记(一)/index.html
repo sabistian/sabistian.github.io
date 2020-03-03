@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, 
+maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xxxxxxx.xxx"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="高性能MySQL读书笔记（一）  磁盘I/O 索引浅析 设置高性能索引策略 高性能SQL 相关资料   从理解磁盘I/O开始= =。">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能MySQL读书笔记（一）">
+<meta property="og:url" content="http://sabistian.cn/2019/11/01/高性能MySQL读书笔记(一)/index.html">
+<meta property="og:site_name" content="Sabistian    |      Dear">
+<meta property="og:description" content="高性能MySQL读书笔记（一）  磁盘I/O 索引浅析 设置高性能索引策略 高性能SQL 相关资料   从理解磁盘I/O开始= =。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/sql1.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/sql2.png">
+<meta property="og:updated_time" content="2020-03-03T01:26:35.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高性能MySQL读书笔记（一）">
+<meta name="twitter:description" content="高性能MySQL读书笔记（一）  磁盘I/O 索引浅析 设置高性能索引策略 高性能SQL 相关资料   从理解磁盘I/O开始= =。">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/sql1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sabistian.cn/2019/11/01/高性能MySQL读书笔记(一)/">
+
+
+
+
+
+  <title>高性能MySQL读书笔记（一） | Sabistian    |      Dear</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sabistian    |      Dear</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/11/01/高性能MySQL读书笔记(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高性能MySQL读书笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-01T23:03:09+08:00">
+                2019-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="高性能MySQL读书笔记（一）"><a href="#高性能MySQL读书笔记（一）" class="headerlink" title="高性能MySQL读书笔记（一）"></a>高性能MySQL读书笔记（一）</h1><blockquote>
+<ul>
+<li>磁盘I/O</li>
+<li>索引浅析</li>
+<li>设置高性能索引策略</li>
+<li>高性能SQL</li>
+<li>相关资料</li>
+</ul>
+</blockquote>
+<p>从理解磁盘I/O开始= =。</p>
+<a id="more"></a> 
+<h2 id="磁盘I-O"><a href="#磁盘I-O" class="headerlink" title="磁盘I/O"></a>磁盘I/O</h2><p>sql 一次查询从磁盘I / O 开始，主轴让磁盘盘片转动，然后传动手臂可伸展让读取头在盘片上进行读写操作。 每个盘片有两面，都可记录信息，所以一张盘片对应着两个磁头。磁盘物理结构自行搜索查阅0 0</p>
+<p><strong>扇区</strong>：盘片分为很多的扇形区域，每个区域是一个扇区，每个扇区的大小固定为512字节<br><strong>磁道</strong>：盘片表面上以盘片中心为圆心，不同半径的同心圆环称为磁道</p>
+<p>一个I / O请求所花费的时间 = <strong>寻道时间 + 旋转延迟 + 数据传输时间</strong>（约10ms）</p>
+<h3 id="相应概念"><a href="#相应概念" class="headerlink" title="相应概念"></a>相应概念</h3><ul>
+<li>寻道时间：当需要从磁盘读取数据时，系统会将数据逻辑地址传给磁盘，磁盘的控制电路按照寻址逻辑将逻辑地址翻译成物理地址，即确定要读的数据在哪个磁道，哪个扇区。 为了读取这个扇区的数据，需要将磁头放到这个扇区上方，为了实现这一点，磁头需要移动对准相应磁道，这个过程叫做寻道,所耗费时间叫做寻道时间。</li>
+<li>旋转延迟：磁盘旋转将目标扇区旋转到磁头下，这个过程耗费的时间叫做旋转时间。</li>
+<li>数据传输时间：传输延迟，可以忽略。</li>
+<li>预读：当一次IO时，不光把当前磁盘地址的数据，而是把相邻的数据也都读取到内存缓冲区内，因为局部预读性原理告诉我们，当计算机访问一个地址的数据的时候，与其相邻的数据也会很快被访问到，所以每次读取页的整数倍(通常一个节点就是一页)。<br>每一次IO读取的数据我们称之为一页(page)。预读的长度一般为页（page）的整倍数。<br>页是计算机管理存储器的逻辑块，硬件及操作系统往往将主存和磁盘存储区分割为连续的大小相等的块，每个存储块称为一页（在许多操作系统中，页得大小通常为4k），主存和磁盘以页为单位交换数据。<br>当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。<h3 id="衡量标准-IOPS和吞吐量"><a href="#衡量标准-IOPS和吞吐量" class="headerlink" title="衡量标准 :IOPS和吞吐量"></a>衡量标准 :IOPS和吞吐量</h3></li>
+<li>IPOS:IOPS（Input/ Output Per Second）即指每秒内系统能处理的I / O请求数量。<br>随机读写频繁的应用，如小文件存储等，关注随机读写性能，IOPS是关键衡量指标。<br>可以推算出磁盘的IOPS = 1000ms / (Tseek + Trotation + Transfer)<br>常见磁盘的随机读写最大IOPS为：<ul>
+<li>7200rpm的磁盘 IOPS = 76 IOPS</li>
+<li>10000rpm的磁盘IOPS = 111 IOPS</li>
+<li>15000rpm的磁盘IOPS = 166 IOPS</li>
+</ul>
+</li>
+<li>磁盘吞吐量：指单位时间内可以成功传输的数据数量。磁盘阵列与服务器之间的数据通道对吞吐量影响很大。 顺序读写频繁的应用，如视频点播，关注连续读写性能、数据吞吐量是关键衡量指标。</li>
+</ul>
+<h2 id="索引浅析"><a href="#索引浅析" class="headerlink" title="索引浅析"></a>索引浅析</h2><p>MySQL官方对索引的定义为：索引是帮助MySQL高效获取数据的数据结构。简而言之, <strong>索引是数据结构</strong>。</p>
+<h3 id="B-索引"><a href="#B-索引" class="headerlink" title="B+索引"></a>B+索引</h3><p>B+ Tree，简单来说就是一种为磁盘或者其他存储设备而设计的一种平衡二叉树,在B + tree中所有记录都按照key的大小存放在叶子结点上，各叶子结点直接用指针连接。 由二叉树，平衡二叉树，BTree演化而来。二叉树 要保证父节点大于左子结点，小于右子节点。 平衡二叉树 在二叉树的基础上,要保证任一结点的两个儿子字树高度差不大于1。 BTree 是一种自平衡二叉树, 继承了上述平衡二叉树的特性，另外并保证了每个叶子结点到根节点的距离相同。<br>Ｂ+ 树与BTree主要不同就是data的存放位置，以及叶子结点的指针构成链表。</p>
+<p>这里有一个很好用的数据结构可视化的网站，可自行参考 <a href="https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html" target="_blank" rel="noopener">website</a><br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/sql1.png" alt="sql1"></p>
+<p>键值的拷贝被存储在内部节点（或称非叶子结点）；键值和记录存储在叶子节点； 一个叶子节点可以包含一个指针，指向另一个叶子节点以加速顺序存取。</p>
+<p>索引为什么使用B+ Tree？<br>每个页的叶子结点通常包含较多的记录，具有较高的扇出性(可理解为每个节点对应的下层节点较多) ，因此树的高度较低(3 ~4) ，而树的高度也决定了磁盘IO的次数，从而影响了数据库的性能。 一般情况下，IO次数与树的高度是一致的。</p>
+<p>对于组合索引，B+ tree索引是按照索引列名(从左到右的顺序) 进行顺序排序的，因此可以将随机IO转换为顺序IO提升IO效率;<br>并且可以支持order by \group等排序需求。适合范围查询</p>
+<h3 id="聚集索引和非聚集索引"><a href="#聚集索引和非聚集索引" class="headerlink" title="聚集索引和非聚集索引"></a>聚集索引和非聚集索引</h3><ul>
+<li><p><strong>聚集索引</strong> :<br>InnoDB引擎是索引组织表，所有数据都存放在聚集索引中。<br>准确来说聚集索引并不是某种单独的索引类型，而是一种数据存储方式。就是指在同一个结构中保存了B +tree索引以及数据行。<br>InnoDB中通常主键就是一个聚集索引。 innoDB中，用户如果没有设置主键索引，会随机选择一个唯一的非空索引替代，<br>如果没有这样的索引，会隐式的定义一个主键作为隐式的聚集索引。<br>通常将主键设置为一个与业务无关的自增数字，这样能保证按照主键顺序插入数据，避免页分裂以及碎片问题。<br>主键索引的非叶子结点存放的是&lt;.key，address.&gt;,address就是指向下一层的指针。<br>主键索引的叶子结点保存了所有列的信息，因此通过主键索引可以快速获取数据。</p>
+</li>
+<li><p><strong>辅助索引</strong> (或称为非聚集索引、二级索引)<br>辅助索引的叶子结点并没有存放数据，而是存放了主键值。<br>因为二级索引叶子页中存放了主键索引的值信息，如果主键索引很大的话，会导致所有索引都比较大。因此主键索引尽可能要小<br>也就是说使用辅助索引查询，会通过叶子结点找到对应的主键，在主键索引中找到最终的数据。<br>创建的索引，如联合索引、唯一索引等，都属于非聚簇索引。 自己创建的索引是查找主键，找到主键后根据主键查询数据</p>
+</li>
+<li><p><strong>联合索引</strong>：联合索引是指对表上的多个列进行索引。联合索引也是一颗B+ 树，不同的是联合索引的键值数量不是1，而是大于等于2。<br>例如有user表，字段为id，age，name，现发现如下两条sql使用频率最多：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Select *from user where age = ？;</span><br><span class="line">Select *from user where age = ? and name = ? ;</span><br></pre></td></tr></table></figure>
+
+<p>这时候不需要为age和name单独建两个索引，只需要建如下一个联合索引即可：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_age_name on user(age, name)</span><br></pre></td></tr></table></figure>
+
+<p>联合索引的另一个好处已经对第二个键值进行了排序处理，有时候可以避免多一次的排序操作。</p>
+<ul>
+<li><strong>覆盖索引</strong> : 即从辅助索引中就可以得到查询所需要的所有字段值，而不需要查询聚集索引中的记录。 覆盖索引的好处是辅助索引不包含整行记录的所有信息，故其大小要远小于聚集索引，因此可以减少大量的IO操作。<br>例如上面有联合索引（age，name），如果如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select age，name from user where age = ？</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>就能使用覆盖索引了。 覆盖索引的另一个好处是对于统计问题，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from user</span><br></pre></td></tr></table></figure>
+
+<p>innodb存储引擎并不会选择通过查询聚集索引来进行统计。 由于user表上还有辅助索引，而辅助索引远小于聚集索引，选择辅助索引可以减少IO操作。</p>
+<h3 id="为什么要使用索引"><a href="#为什么要使用索引" class="headerlink" title="为什么要使用索引"></a>为什么要使用索引</h3><ul>
+<li>使用索引可以大大减少服务器需要扫描的数据量。 </li>
+<li>使用索引可以帮助服务器避免排序或者临时表 </li>
+<li>索引是随机I\O变为 顺序I\O.</li>
+</ul>
+<h3 id="适用范围和注意事项"><a href="#适用范围和注意事项" class="headerlink" title="适用范围和注意事项"></a>适用范围和注意事项</h3><p>索引并不是适用于任何情况。对于中型、大型表适用。对于小型表全表扫描更高效。而对于特大型表，考虑 “分区”技术。</p>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>索引只建合适的，不建多余的因为每当增删数据时，B+ 树都要进行调整，如果建立多个索引，多个B + 树都要进行调整，而树越多、结构越庞大，这个调整越是耗时耗资源。 </li>
+<li>如果减少了这些不必要的索引，磁盘的使用率可能会大大降低。 </li>
+<li>索引列的数据长度能少则少。 索引数据长度越小，每个块中存储的索引数量越多，一次IO获取的值更多。 </li>
+<li>匹配列前缀可用到索引<br>like 9999 % （最原则上按照左匹配上来说是可以的，但是不一定能用到索引，当离散性太差的时候就不行），<br>like % 9999 %、like % 9999用不到索引； </li>
+<li>Where 条件中in和or可以使用索引， not in 和 &lt; &gt; 操作无法使用索引，如果是not in或 &lt; &gt; ，面对B + 树，引擎根本不知道应该从哪个节点入手。 </li>
+<li>匹配范围值，order by 也可用到索引； 多用指定列查询，只返回自己想到的数据列，少用select *； </li>
+<li>不需要查询无用字段，并且不使用 *可能还会命中覆盖索引哦；</li>
+<li>联合索引中如果不是按照索引最左列开始查找，无法使用索引； </li>
+</ul>
+<h2 id="设置高性能索引策略"><a href="#设置高性能索引策略" class="headerlink" title="设置高性能索引策略"></a>设置高性能索引策略</h2><p>###应该避免的查询例子</p>
+<p>如下结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Create Table: CREATE TABLE `people` (</span><br><span class="line">  `last_name` varchar(50) NOT NULL,</span><br><span class="line">  `first_name` varchar(50) NOT NULL,</span><br><span class="line">  `dob` date NOT NULL,</span><br><span class="line">  `gender` enum(&apos;m&apos;,&apos;f&apos;) NOT NULL,</span><br><span class="line">  KEY `last_name` (`last_name`,`first_name`,`dob`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure>
+
+<p>最左前缀匹配原则：顾名思义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ... from people where .... first_name=&quot;...&quot;....</span><br></pre></td></tr></table></figure>
+
+<p>无法跳过某个列使用后续索引列 ：顾名思义 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ... from people where last_name=&quot;...&quot; and dob=&quot;...&quot;</span><br></pre></td></tr></table></figure>
+
+<p>范围查询后的列无法使用索引 ：顾名思义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ... from people where last_name &gt; &quot;...&quot;  and first_name= &quot;...&quot; and dob= &quot;...&quot;</span><br></pre></td></tr></table></figure>
+
+<p>列作为函数参数或表达式的一部分 ：顾名思义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select ... from people force index(last_name) where left(last_name,3) = &quot;...&quot;</span><br><span class="line">select ... from people where last_name+1 = &quot;1001&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注：以上四种都不会使用索引,explain 显示的是全表搜索.</p>
+<h3 id="前缀索引和索引选择性"><a href="#前缀索引和索引选择性" class="headerlink" title="前缀索引和索引选择性"></a>前缀索引和索引选择性</h3><ul>
+<li><p>索引选择性: <strong>索引的基数</strong>（Cardinality）/ 表的总记录数（ #T）<br>范围从 1 #T ~1 ，值越高查询效率越高。唯一索引的选择性是：1.<br>注：<strong>索引的基数</strong>（Cardinality）不重复的索引值。此处计算的基数（Cardinality），与SHOW INDEX 语句中的Cardinality并不一致！SHOW INDEX 语句中的只是预估值。<br>一般情况，将选择性高的列放在左边，选择性高代表这个列的过滤性较好，尽可能的尽快过滤掉无用的数据。<br>基数可以通过“show index from 表名”查看。 高索引选择性的好处就是mysql查找匹配的时候可以过滤更多的行，唯一索引的选择性最佳，值为1。</p>
+</li>
+<li><p>前缀索引<br>对于 较大的Varchar类型、Text类型、Blob类型，需要建立索引时必须使用前缀索引，因为mysql不允许索引完整大小，而且索引字段越大效率越差。<br>可以索引开始的部分字符串（取代全部），大大节约索引空间，提高索引效率。<br>但这样会降低索引的选择性。 所以，对比较长的 （Varchar、Text、BLOB等等数据类型）列查询，要保证索引的选择性，又要不能太长以节省空间。<br>所以“前缀”需要选的恰到好处：<br>“前缀索引”的基数应该接近完整的列索引的基数。<br>示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select count(Distinct last_name)/count(*) from people ;</span><br><span class="line">+------------------------------------+</span><br><span class="line">| count(Distinct last_name)/count(*) |</span><br><span class="line">+------------------------------------+</span><br><span class="line">|                             0.7059 |</span><br><span class="line">+------------------------------------+</span><br><span class="line">1 row in set (0.07 sec)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">mysql&gt; select count(Distinct left(last_name,5))/count(*), count(Distinct left(la</span><br><span class="line">st_name,6))/count(*) ,count(Distinct left(last_name,7))/count(*)  from people \G</span><br><span class="line"></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">count(Distinct left(last_name,5))/count(*): 0.6471</span><br><span class="line">count(Distinct left(last_name,6))/count(*): 0.7059</span><br><span class="line">count(Distinct left(last_name,7))/count(*): 0.7059</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table people add key (last_name(6))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>注意：<br>前缀索引是能够使索引更小，更快的方法，但是无法使用前缀索引做 Group By\Order By,也不能用前缀索引做覆盖查询（Using Index）。</p>
+<p>除了使用前缀索引的方式处理这类大字段索引的情况，还有如下方式：</p>
+<h3 id="伪哈希索引"><a href="#伪哈希索引" class="headerlink" title="伪哈希索引"></a>伪哈希索引</h3><ul>
+<li>step1建表语句<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table `people` (</span><br><span class="line">  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `last_name` VARCHAR(50) COLLATE utf8_bin NOT NULL,</span><br><span class="line">  `first_name` VARCHAR(50) COLLATE utf8_bin NOT NULL,</span><br><span class="line">  `dob` DATE NOT NULL,</span><br><span class="line">  `gender` ENUM(&apos;m&apos;,&apos;f&apos;) COLLATE utf8_bin NOT NULL,</span><br><span class="line">  `blog_url` VARCHAR(128) COLLATE utf8_bin DEFAULT NULL,</span><br><span class="line">  `crc32_url` BIGINT(20) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`),</span><br><span class="line">  KEY `last_name` (`last_name`,`first_name`,`dob`),</span><br><span class="line">  KEY `crc32_url` (`crc32_url`)</span><br><span class="line">) ENGINE=INNODB</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>因为blog_url是一个较长的字符串，所以直接将blog_url作为索引列会影响索引的整体效率。现在，尝试用一个伪hash值做一个伪hash索引。</p>
+<ul>
+<li>step2 建立触发器，用于每次插入\更新维护hash值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER //</span><br><span class="line">	CREATE TRIGGER pseudohash_crc32_ins BEFORE INSERT</span><br><span class="line">	ON people FOR EACH ROW</span><br><span class="line">	BEGIN</span><br><span class="line">	  SET New.crc32_url = CRC32(New.blog_url);</span><br><span class="line">	END //</span><br><span class="line">	CREATE TRIGGER pseudohash_crc32_upd BEFORE UPDATE</span><br><span class="line">	ON people FOR EACH ROW</span><br><span class="line">	BEGIN</span><br><span class="line">	  SET New.crc32_url = CRC32(New.blog_url);</span><br><span class="line">	END //</span><br><span class="line">DELIMITER;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>效果如下，非常明显：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(1) FROM people ;</span><br><span class="line">/**</span><br><span class="line"> 636480</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SELECT blog_url FROM people WHERE blog_url=&quot;http://www.-588141732.com&quot; AND crc32_url=1790086969</span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">sql执行时间：</span><br><span class="line">执行耗时   : 0.004 sec</span><br><span class="line">传送时间   : 0 sec</span><br><span class="line">总耗时      : 0.004 sec</span><br><span class="line"></span><br><span class="line">explain:</span><br><span class="line">&quot;id&quot;	&quot;select_type&quot;	&quot;table&quot;	&quot;partitions&quot;	&quot;type&quot;	&quot;possible_keys&quot;	&quot;key&quot;	&quot;key_len&quot;	&quot;ref&quot;	&quot;rows&quot;	&quot;filtered&quot;	&quot;Extra&quot;</span><br><span class="line">&quot;1&quot;	&quot;SIMPLE&quot;	&quot;people&quot;	\N	&quot;ref&quot;	&quot;crc32_url&quot;	&quot;crc32_url&quot;	&quot;9&quot;	&quot;const&quot;	&quot;1&quot;	&quot;10.00&quot;	&quot;Using where&quot;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT blog_url FROM people WHERE blog_url=&quot;http://www.-588141732.com&quot; </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">sql执行时间：</span><br><span class="line">执行耗时   : 0.413 sec</span><br><span class="line">传送时间   : 0 sec</span><br><span class="line">总耗时      : 0.413 sec</span><br><span class="line"></span><br><span class="line">explain:</span><br><span class="line">&quot;id&quot;	&quot;select_type&quot;	&quot;table&quot;	&quot;partitions&quot;	&quot;type&quot;	&quot;possible_keys&quot;	&quot;key&quot;	&quot;key_len&quot; &quot;ref&quot;	&quot;rows&quot;	 &quot;filtered&quot; &quot;Extra&quot;</span><br><span class="line">&quot;1&quot;	&quot;SIMPLE&quot;	&quot;people&quot;	\N	&quot;ALL&quot;		\N	\N	\N	   \N	&quot;630928&quot;  &quot;10.00&quot;   &quot;Using where&quot;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<p>crc函数当数据量达到93000时，会产生1%的冲突。如果要避免hash冲突的概率可以使用MD5()截取的方式取代crc()。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT CONV(RIGHT(MD5(&quot;http://www.-aqq3feaeaff41732fff.com&quot;),16),16,10) AS hashCode;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三星索引-关系型数据库索引设计及优化"><a href="#三星索引-关系型数据库索引设计及优化" class="headerlink" title="三星索引(关系型数据库索引设计及优化)"></a>三星索引(关系型数据库索引设计及优化)</h3><blockquote>
+<ul>
+<li>一星 使用where后的谓词列，按照选择性构造索引。 </li>
+<li>二星 如果语句中有排序操作，使用索引自带的顺序的排序（消除fileSort）。 </li>
+<li>三星 如果可以的话，将select后的还不在索引中的列名放到索引后边，可以覆盖索引（using index），而不需要读取表数据。 如下这个sql就是一个三星索引。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>SELECT last_name,first_name,dob FROM people WHERE last_name=“101899” AND first_name=“10189900” AND dob=“2017-08-03” ORDER BY dob<br>在实际应用中，无法保证三个星每个星都满足。需要权衡取舍。</p>
+</blockquote>
+<h2 id="高性能SQL"><a href="#高性能SQL" class="headerlink" title="高性能SQL"></a>高性能SQL</h2><h3 id="SQL-执行过程"><a href="#SQL-执行过程" class="headerlink" title="SQL 执行过程"></a>SQL 执行过程</h3><ul>
+<li><p>Step1:客户端向Mysql服务器发送SQL语句。<br>使用”半双工”通信方式，客户端或服务端在一个连接上同一时刻只允许一方进行数据传输，并且直到数据传输完成，另一方才能执行传输。<br>当语句太长，超过 max_allowed_packet ,服务端会拒绝接收。<br>通常建议加上limit，可以减少不必要的数据从服务端发送到客户端。</p>
+</li>
+<li><p>Step2:服务器收到后先查询”查询缓存“,如果命中，从缓存中直接返回sql执行的结果集。否则，进入Step3。<br>这个缓存通过一个对大小写敏感的hash算法实现，及时只有一个字节不匹配，那也无法命中。</p>
+</li>
+<li><p>Step3:服务器解析、预处理、优化sql执行计划，然后将处理好的sql放入查询的执行计划中。<br>在这个阶段，sql会被转换为一个执行计划，使用这个执行计划于具体的存储引擎进行交换。<br>这个阶段包括，解析、预处理、优化sql执行计划这三个子任务。</p>
+</li>
+<li><p>Step4:执行引擎通过调用”存储引擎”(如，innodb、myisam等)提供的API去执行这个计划。</p>
+</li>
+<li><p>Step5：服务器返回结果给客户端</p>
+</li>
+</ul>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/sql2.png" alt="sql2"></p>
+<h3 id="慢-SQL-优化过程"><a href="#慢-SQL-优化过程" class="headerlink" title="慢 SQL 优化过程"></a>慢 SQL 优化过程</h3><ul>
+<li><p>Step1:explain查看 （show profile可以查看耗时分布）</p>
+</li>
+<li><p>Step2:确认优化目标\方向，对于复杂sql需要理清执行步骤<br>目标1. type是否能够按照 const&gt;eq_reg&gt;ref&gt;range&gt;index&gt;ALL的顺序优化，最差也要达到range级别。<br>目标2. 避免filesort的出现、避免rows数据量太大等负面字段、索引选择性是否足够、对于关联查询尽量保证关联字段在第二张表上有可用索引（原因：NestLoop）。</p>
+</li>
+<li><p>Step3:遵照SQL索引原则增加或调整SQL，常见如下(可参考上文去理解)<br>保证where后的谓词尽可能出现在索引中，并且组合索引按选择性顺序排序，范围查询条件尽量放在后边<br>(如果sql中有排序语句)是否能够通过索引解决排序问题<br>是否能使用use index，全部通过索引获取数据</p>
+</li>
+</ul>
+<h3 id="SQL使用常用策略"><a href="#SQL使用常用策略" class="headerlink" title="SQL使用常用策略"></a>SQL使用常用策略</h3><blockquote>
+<ul>
+<li>通常情况下，使用一个性能好的sql去做更多的事情，而不是使用多个sql。<br>除非这个sql过长效率低下或者对于delete这种语句，过长的delete会导致太多的数据被锁定，耗尽资源，阻塞其他sql。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>分解关联查询。<br>将关联(** join…)放在应用中处理，执行小而简单的sql，好处是：分解后的sql通常由于简单固定，能更好的使用mysql缓存。<br>执行拆分后的sql，可以减少锁的竞争。<br>程序具备更强的扩展性<br>关联sql使用的是内嵌循环算法nestloop，而应用中可以使用hashmap等结构处理数据，效率更高</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>关于Count()<br>count()函数有两种含义:统计行数、统计列数。<br>比如：count(*)代表统计的行数；count(talbe.cloumn)代表统计的是这个列不为null的数量。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>关于Limit<br>在使用Limit 1000,20这种操作的时候，mysql会扫描偏移量(1000条无效查询)数据，而只取后20条，尽量避免这种写法，想办法规避。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>关于Union<br>需要将where、order by、limit 这些限制放入到每个子查询，才能重分提升效率。<br>另外如非必须，尽量使用Union all，因为union会给每个子查询的临时表加入distinct，对每个临时表做唯一性检查，效率较差。</li>
+</ul>
+</blockquote>
+<h3 id="一些常用的查看MYSQL使用情况语句"><a href="#一些常用的查看MYSQL使用情况语句" class="headerlink" title="一些常用的查看MYSQL使用情况语句"></a>一些常用的查看MYSQL使用情况语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">/*1.查看索引  </span><br><span class="line">  </span><br><span class="line">（1）单位是GB*/   </span><br><span class="line">  </span><br><span class="line">SELECT CONCAT(ROUND(SUM(index_length)/(1024*1024*1024), 6), &apos; GB&apos;) AS &apos;Total Index Size&apos;   </span><br><span class="line">FROM information_schema.TABLES WHERE table_schema LIKE &apos;database&apos;;   </span><br><span class="line">/*  </span><br><span class="line">+------------------+   </span><br><span class="line">| Total Index Size |   </span><br><span class="line">+------------------+   </span><br><span class="line">| 1.70 GB |   </span><br><span class="line">+------------------+  </span><br><span class="line">*/  </span><br><span class="line">/*  </span><br><span class="line">（2）单位是MB  </span><br><span class="line">*/  </span><br><span class="line">SELECT CONCAT(ROUND(SUM(index_length)/(1024*1024), 6), &apos; MB&apos;) AS &apos;Total Index Size&apos;   </span><br><span class="line">FROM information_schema.TABLES WHERE table_schema LIKE &apos;database&apos;;  </span><br><span class="line">/*  </span><br><span class="line">   其中“database”为你所要查看的数据库  </span><br><span class="line">*/  </span><br><span class="line">   </span><br><span class="line">/*  </span><br><span class="line">2.查看表空间  </span><br><span class="line">*/  </span><br><span class="line">SELECT CONCAT(ROUND(SUM(data_length)/(1024*1024*1024), 6), &apos; GB&apos;) AS &apos;Total Data Size&apos;   </span><br><span class="line">FROM information_schema.TABLES WHERE table_schema LIKE &apos;database&apos;;   </span><br><span class="line">/*  </span><br><span class="line">+-----------------+   </span><br><span class="line">| Total Data Size |   </span><br><span class="line">+-----------------+   </span><br><span class="line">| 3.01 GB |   </span><br><span class="line">+-----------------+  </span><br><span class="line">*/  </span><br><span class="line">/*  </span><br><span class="line">3.查看数据库中所有表的信息  </span><br><span class="line">*/  </span><br><span class="line">SELECT CONCAT(table_schema,&apos;.&apos;,table_name) AS &apos;Table Name&apos;,   </span><br><span class="line">    table_rows AS &apos;Number of Rows&apos;,   </span><br><span class="line">    CONCAT(ROUND(data_length/(1024*1024*1024),6),&apos; G&apos;) AS &apos;Data Size&apos;,   </span><br><span class="line">    CONCAT(ROUND(index_length/(1024*1024*1024),6),&apos; G&apos;) AS &apos;Index Size&apos; ,   </span><br><span class="line">    CONCAT(ROUND((data_length+index_length)/(1024*1024*1024),6),&apos; G&apos;) AS&apos;Total&apos;  </span><br><span class="line">FROM information_schema.TABLES   </span><br><span class="line">WHERE table_schema LIKE &apos;database&apos;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="https://blog.csdn.net/lemon89/article/details/50193891" target="_blank" rel="noopener">参考博客</a><br><a href="https://dev.mysql.com/doc/index-other.html" target="_blank" rel="noopener">高性能mysql</a>；
+<a href="https://zhuanlan.zhihu.com/p/48385127" target="_blank" rel="noopener">优化方案</a><br><a href="https://blog.csdn.net/superdangbo/article/details/79485724" target="_blank" rel="noopener">索引对比</a><br><a href="https://blog.csdn.net/u010841296/article/details/89790399" target="_blank" rel="noopener">NestLoop</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="邱灵雨 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="邱灵雨 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 邱灵雨 的个人博客">邱灵雨</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://sabistian.cn/2019/11/01/高性能MySQL读书笔记(一)/" title="高性能MySQL读书笔记（一）">http://sabistian.cn/2019/11/01/高性能MySQL读书笔记(一)/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 邱灵雨 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/23/功能模块-战绩榜/" rel="next" title="功能模块 - 战绩榜">
+                <i class="fa fa-chevron-left"></i> 功能模块 - 战绩榜
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/03/高性能MySQL读书笔记(二)/" rel="prev" title="高性能MySQL读书笔记（二）">
+                高性能MySQL读书笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headicon.png" alt="邱灵雨">
+            
+              <p class="site-author-name" itemprop="name">邱灵雨</p>
+              <p class="site-description motion-element" itemprop="description">灵雨既零</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sabistian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sebistian@163.com" target="_blank" title="Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5975979965/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kuai-shen-l/activities" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高性能MySQL读书笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">高性能MySQL读书笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘I-O"><span class="nav-number">1.1.</span> <span class="nav-text">磁盘I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相应概念"><span class="nav-number">1.1.1.</span> <span class="nav-text">相应概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#衡量标准-IOPS和吞吐量"><span class="nav-number">1.1.2.</span> <span class="nav-text">衡量标准 :IOPS和吞吐量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引浅析"><span class="nav-number">1.2.</span> <span class="nav-text">索引浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">B+索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚集索引和非聚集索引"><span class="nav-number">1.2.2.</span> <span class="nav-text">聚集索引和非聚集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">为什么要使用索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适用范围和注意事项"><span class="nav-number">1.2.4.</span> <span class="nav-text">适用范围和注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置高性能索引策略"><span class="nav-number">1.3.</span> <span class="nav-text">设置高性能索引策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前缀索引和索引选择性"><span class="nav-number">1.3.1.</span> <span class="nav-text">前缀索引和索引选择性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪哈希索引"><span class="nav-number">1.3.2.</span> <span class="nav-text">伪哈希索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三星索引-关系型数据库索引设计及优化"><span class="nav-number">1.3.3.</span> <span class="nav-text">三星索引(关系型数据库索引设计及优化)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高性能SQL"><span class="nav-number">1.4.</span> <span class="nav-text">高性能SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-执行过程"><span class="nav-number">1.4.1.</span> <span class="nav-text">SQL 执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#慢-SQL-优化过程"><span class="nav-number">1.4.2.</span> <span class="nav-text">慢 SQL 优化过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL使用常用策略"><span class="nav-number">1.4.3.</span> <span class="nav-text">SQL使用常用策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些常用的查看MYSQL使用情况语句"><span class="nav-number">1.4.4.</span> <span class="nav-text">一些常用的查看MYSQL使用情况语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资料"><span class="nav-number">1.5.</span> <span class="nav-text">相关资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱灵雨</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

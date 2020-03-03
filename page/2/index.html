@@ -285,6 +285,785 @@ maximum-scale=1">
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/" itemprop="url">PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:35:04+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="PC-Hero-的道具模块-四-——基于Protobuf的通信方式和双端逻辑"><a href="#PC-Hero-的道具模块-四-——基于Protobuf的通信方式和双端逻辑" class="headerlink" title="PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑"></a>PC-Hero 的道具模块(四)——基于Protobuf的通信方式和双端逻辑</h1><blockquote>
+<ul>
+<li>Protobuf</li>
+<li>PC-hero道具消息格式</li>
+<li>双端通信逻辑</li>
+<li>蓝图中的调用方式</li>
+</ul>
+</blockquote>
+<p>之前自己写的项目和接触过的消息通信方式都是以Json为消息格式去做，Hero项目是以Protobuf作为消息格式来进行通信，相对于Json会更小，更快一点。</p>
+<h2 id="Protobuf"><a href="#Protobuf" class="headerlink" title="Protobuf"></a>Protobuf</h2><h3 id="消息格式"><a href="#消息格式" class="headerlink" title="消息格式"></a>消息格式</h3><p>protobuf 消息格式由 <strong>【字段规则】 【字段类型】 【标识号】</strong>构成。</p>
+<ul>
+<li>所指定的消息字段修饰符必须是如下之一:<ul>
+<li>required：一个格式良好的消息一定要含有1个这种字段。表示该值是必须要设置的；</li>
+<li>optional：消息格式中该字段可以有0个或1个值（不超过1个）。</li>
+<li>repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括0次）。重复的值的顺序会被保留。表示该值可以重复，相当于java中的List。</li>
+</ul>
+</li>
+<li>所有字段都是标量类型：两个整型（page_number和result_per_page），一个string类型（query）。当然，你也可以为字段指定其他的合成类型，包括枚举（enumerations）或其他消息类型。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/17/PC-hero 道具模块文档四 - 基于Protobuf的通信方式和双端逻辑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档三--添加物品刷新物品/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/PC-hero 道具模块文档三--添加物品刷新物品/" itemprop="url">PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:35:03+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="PC-Hero-的道具模块-三-——-静态添加物品-杀死怪物掉落物品"><a href="#PC-Hero-的道具模块-三-——-静态添加物品-杀死怪物掉落物品" class="headerlink" title="PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品"></a>PC-Hero 的道具模块(三) —— 静态添加物品/杀死怪物掉落物品</h1><blockquote>
+<ul>
+<li>静态添加物品</li>
+<li>杀死怪物掉落物品</li>
+</ul>
+</blockquote>
+<h2 id="静态添加物品"><a href="#静态添加物品" class="headerlink" title="静态添加物品"></a>静态添加物品</h2><p>&emsp;添加物品的基本流程如下<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/2-4.png" alt="2-4"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/17/PC-hero 道具模块文档三--添加物品刷新物品/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档二--UI表现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/PC-hero 道具模块文档二--UI表现/" itemprop="url">PC-Hero 的道具模块(二) —— UI表现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:35:02+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="PC-Hero-的道具模块-二-——-UI表现"><a href="#PC-Hero-的道具模块-二-——-UI表现" class="headerlink" title="PC-Hero 的道具模块(二) —— UI表现"></a>PC-Hero 的道具模块(二) —— UI表现</h1><p>  由于笔者并未在之前接触过UE4和Moba类型的游戏客户端，服务端架构。在现有项目的基础上进入开发后，有一段时间进入了无从下手的境地。可以先去掌握一些基本的蓝图编程知识，做一些蓝图的UI逻辑表现后在进入后续开发。</p>
+<blockquote>
+<ul>
+<li>开发用到的相关知识</li>
+<li>道具设计 </li>
+<li>UI部分准备工作</li>
+<li>道具操作的蓝图通信</li>
+<li>总结</li>
+</ul>
+</blockquote>
+<h2 id="开发用到的相关知识"><a href="#开发用到的相关知识" class="headerlink" title="开发用到的相关知识"></a><strong>开发用到的相关知识</strong></h2><h3 id="C-的编程基础与常见的设计模式"><a href="#C-的编程基础与常见的设计模式" class="headerlink" title="C++的编程基础与常见的设计模式"></a>C++的编程基础与常见的设计模式</h3><p>这里只多插一句，在开发过程中，在服务器端发现了一种新的线程安全的单例模式的写法，比之前看到的Java式写法要好看很多。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">skill_manager</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	skill_manager();</span><br><span class="line">	~skill_manager();</span><br><span class="line">	skill_manager(<span class="keyword">const</span> skill_manager&amp;);</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span>=(<span class="keyword">const</span> skill_manager&amp;);</span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">       <span class="function"><span class="keyword">static</span> skill_manager&amp; <span class="title">get_instance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           <span class="keyword">static</span> skill_manager instance;</span><br><span class="line">           <span class="keyword">return</span> instance;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可优先掌握观察者模式。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/17/PC-hero 道具模块文档二--UI表现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/" itemprop="url">PC-Hero 的道具模块(一) —— 道具需求文档</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T12:33:01+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/策划文档：/" itemprop="url" rel="index">
+                    <span itemprop="name">策划文档：</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="PC-Hero-的道具模块-一-——-道具需求文档"><a href="#PC-Hero-的道具模块-一-——-道具需求文档" class="headerlink" title="PC-Hero 的道具模块(一) —— 道具需求文档"></a>PC-Hero 的道具模块(一) —— 道具需求文档</h1><p> 新人培训流程的最后一环，制作一个可以修改玩家属性的道具。要有客户端表现，客户端图标资源的配表实现，服务器修改的数值从数据库中获取。以及基于现有系统实现功能。</p>
+<blockquote>
+<ul>
+<li>物品的获得方式</li>
+<li>客户端UI表现 </li>
+<li>道具属性</li>
+<li>与服务器的交互</li>
+</ul>
+</blockquote>
+<h2 id="物品的获得方式"><a href="#物品的获得方式" class="headerlink" title="物品的获得方式"></a><strong>物品的获得方式</strong></h2><ul>
+<li>地图上放置</li>
+<li>击杀怪物后随机掉落</li>
+<li>升级获得 （可选）
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/17/PC-hero 道具模块文档一 - 道具需求文档/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/07/29/MyFirstBlog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/29/MyFirstBlog/" itemprop="url">MyFirstBlog</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T15:52:09+08:00">
+                2019-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一丝抱怨"><a href="#一丝抱怨" class="headerlink" title="一丝抱怨"></a>一丝抱怨</h2><p>对于从未写过博客的我而言，hexo是一个很不好用的框架…为了美观就要自己去修改很多地方。加入百度的搜索平台用了一下午的时间弄好，却因为晚上主题配置文件中修改了未知的地方，不能生成index文件导致各种404.被迫无奈恢复到最初的样子。。</p>
+<h2 id="杨帆起航"><a href="#杨帆起航" class="headerlink" title="杨帆起航"></a>杨帆起航</h2><p>从此开始，这里记录一些学习中解决掉的技术难题和知识路线。今日份的<strong>杨帆起航</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/29/MyFirstBlog/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/07/29/Unreal Engine运行项目所需环境搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,7 +1261,7 @@ maximum-scale=1">
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -493,7 +1272,7 @@ maximum-scale=1">
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -504,7 +1283,7 @@ maximum-scale=1">
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -571,7 +1350,7 @@ maximum-scale=1">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

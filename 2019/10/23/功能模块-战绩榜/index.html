@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, 
+maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xxxxxxx.xxx"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="c++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="功能模块 - 战绩榜  功能需求 总体概述 程序描述   功能需求需求文档详见《document/设计工作/OB文档集合/产品化/OB版本 天梯榜单修改》 =.= 。 总体概述功能概述战绩，是玩家参与一局游戏，并根据当局游戏表现来获得的一种分，会根据玩家战绩分的不同去做排名，形成战绩榜。战绩榜以周为固定周期进行统计结算，根据周期内全服玩家所获得的战绩值动态排行。与天梯榜的不同之处在于：是以周为固定">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="功能模块 - 战绩榜">
+<meta property="og:url" content="http://sabistian.cn/2019/10/23/功能模块-战绩榜/index.html">
+<meta property="og:site_name" content="Sabistian    |      Dear">
+<meta property="og:description" content="功能模块 - 战绩榜  功能需求 总体概述 程序描述   功能需求需求文档详见《document/设计工作/OB文档集合/产品化/OB版本 天梯榜单修改》 =.= 。 总体概述功能概述战绩，是玩家参与一局游戏，并根据当局游戏表现来获得的一种分，会根据玩家战绩分的不同去做排名，形成战绩榜。战绩榜以周为固定周期进行统计结算，根据周期内全服玩家所获得的战绩值动态排行。与天梯榜的不同之处在于：是以周为固定">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/comba1.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat2.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat3.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat4.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat5.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat6.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat7.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat8.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat9.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat10.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat11.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat12.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat13.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat14.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat15.png">
+<meta property="og:updated_time" content="2020-03-03T01:35:32.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="功能模块 - 战绩榜">
+<meta name="twitter:description" content="功能模块 - 战绩榜  功能需求 总体概述 程序描述   功能需求需求文档详见《document/设计工作/OB文档集合/产品化/OB版本 天梯榜单修改》 =.= 。 总体概述功能概述战绩，是玩家参与一局游戏，并根据当局游戏表现来获得的一种分，会根据玩家战绩分的不同去做排名，形成战绩榜。战绩榜以周为固定周期进行统计结算，根据周期内全服玩家所获得的战绩值动态排行。与天梯榜的不同之处在于：是以周为固定">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/comba1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sabistian.cn/2019/10/23/功能模块-战绩榜/">
+
+
+
+
+
+  <title>功能模块 - 战绩榜 | Sabistian    |      Dear</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sabistian    |      Dear</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/10/23/功能模块-战绩榜/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">功能模块 - 战绩榜</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-23T22:03:09+08:00">
+                2019-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="功能模块-战绩榜"><a href="#功能模块-战绩榜" class="headerlink" title="功能模块 - 战绩榜"></a>功能模块 - 战绩榜</h1><blockquote>
+<ul>
+<li>功能需求</li>
+<li>总体概述</li>
+<li>程序描述</li>
+</ul>
+</blockquote>
+<h2 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h2><p>需求文档详见《document/设计工作/OB文档集合/产品化/OB版本 天梯榜单修改》 =.= 。</p>
+<h2 id="总体概述"><a href="#总体概述" class="headerlink" title="总体概述"></a>总体概述</h2><h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><p>战绩，是玩家参与一局游戏，并根据当局游戏表现来获得的一种分，会根据玩家战绩分的不同去做排名，形成战绩榜。战绩榜以周为固定周期进行统计结算，根据周期内全服玩家所获得的战绩值动态排行。与天梯榜的不同之处在于：<strong>是以周为固定周期进行统计结算，并在两个周期开始之间需要显示榜单内容。</strong>战绩榜的赛季开始与赛季结束都是一个固定的时间点，要避免由于启服，关服所可能导致相应操作的miss，注意这一边界情况的处理即可。详见 <strong>遇到的问题及相应解决方案</strong>。</p>
+<a id="more"></a> 
+
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><blockquote>
+<ul>
+<li>USER_CRANK_INFO ： 榜单内容相应数据结构体。        位于 char_msg.hpp 文件</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>list <user_crank_info> UserInfoList ： 榜单List         位于 combatsc_ranking.h 文件</user_crank_info></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>int32 combatIntergal,  last_combat_season_ranking , last_combat_season_intergal;  bool has_got_combat_reward; 存放在Usernode上的玩家相应战绩榜信息，用于客户端显示。CombatIntergal 来判断玩家一局游戏结束之后是否能够进入榜单的依据，另外三者用于显示玩家上赛季的战绩榜参战情况，和是否领取过奖励.位于类 UserInfo 中</li>
+</ul>
+</blockquote>
+<h3 id="相关类"><a href="#相关类" class="headerlink" title="相关类"></a>相关类</h3><blockquote>
+<ul>
+<li>CombatSeasonMgr： 整体把控每一个战绩榜周期的开始与结束，管理战绩榜，开始-赛季中期-结束-开始…的管理类。  位于 combat_season_mgr.h 文件.</li>
+<li>CombatScore_Ranking ： 管控战绩榜单内容的类，榜单内容的动态变化。也是玩家主要看到榜单内容的数据维护类。  位于 combatsc_ranking.h 文件</li>
+</ul>
+</blockquote>
+<h2 id="程序描述"><a href="#程序描述" class="headerlink" title="程序描述"></a>程序描述</h2><h3 id="战绩值计算"><a href="#战绩值计算" class="headerlink" title="战绩值计算"></a>战绩值计算</h3><p>很明显战绩值是需要在cs进程去做统计的一个变量，所以在加入场景前需要将玩家当前战绩值从ws 带到cs 中.</p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/comba1.png" alt="combat1"></p>
+<p>战绩值计算规则可详见需求文档，具体逻辑实现在</p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat2.png" alt="combat2"><br>位于player.hpp中.</p>
+<p>在玩家结束一盘游戏进行结算的时候调用,    位于函数<strong>player:: LeaveBattleSettlement</strong> , <strong>player::LeaveBattleSettlementTeam</strong>中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SetBattleSettlementInfo(ebs_newCombatIntegral,GetCombatIntegral(e_battle_room_mode_Single_Rank));</span><br><span class="line">SetBattleSettlementInfo(ebs_newCombatIntegral, GetCombatIntegral(e_battle_room_mode_Team_Rank));</span><br></pre></td></tr></table></figure>
+
+<h3 id="榜单内容变化以及数据存储"><a href="#榜单内容变化以及数据存储" class="headerlink" title="榜单内容变化以及数据存储"></a>榜单内容变化以及数据存储</h3><blockquote>
+<ul>
+<li>一盘游戏结束榜单数据维护流程<br>  玩家游戏结束数据传回ws的时候，需要判断玩家战绩值是否发生了变化，会不会影响战绩榜单也发生改变, 战绩榜是一个动态更新的榜，因为需要保证同分段的玩家，先达到分段的玩家排在前面，需要注意相对顺序的稳定性。榜单内的玩家常用英雄也需进行维护。</li>
+</ul>
+</blockquote>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat3.png" alt="combat3"></p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat4.png" alt="combat4"></p>
+<blockquote>
+<ul>
+<li>存储过程<br>战绩榜的数据存储过程放在一个tick中， 每20s 做一次判断是否需要做存储过程，当战绩榜内容发生变化时需将CombatScore_Ranking单例类中的is_rank_dirty 置为True即可。<strong>位于combatsc_ranking.cpp 中。</strong><br>ws2dp_save_combat_rank_to_db 协议带着战绩榜数据发送到dp中，调用函数sp_save_combat_rank，存储榜单内容，函数内容为Truncate 旧表，并逐条插入消息体中的user_crank_info. <strong>Db表结构为</strong> :<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat5.png" alt="combat5"><br>玩家的战绩值存在user_info中对应字段名为 combatIntergal 类型是int</li>
+</ul>
+</blockquote>
+<h3 id="战绩榜奖励"><a href="#战绩榜奖励" class="headerlink" title="战绩榜奖励"></a>战绩榜奖励</h3><p>战绩榜的奖励领取时间为一个周期结束后到下一个周期结束前，奖励等级判定为上周在榜单名次。需要注意的地方就是<strong>获取奖励等级</strong>和<strong>领取奖励</strong>。</p>
+<blockquote>
+<ul>
+<li>获取奖励等级:由于客户端需要显示玩家可以领取奖励的奖励图标，对应服务器在函数int32 UserNode::GetCombatRewardId()中。除第一周外都根据玩家的上周排名进行计算即可，第一周则根据当前排名去计算。    </li>
+<li>领取奖励: 服务器接收到客户端领取奖励的请求后，需判断玩家是否满足领取奖励的条件，满足条件可以调用 获取奖励等级 方法，得到相应奖励的数据表attributeId，调用获取物品的通用函数即可,将Usernode中的has_got_combat_reward 置真。同时将领取奖励结果回应给客户端。对应函数在 void UserNode::HandleCombatReward() 。</li>
+<li>对应db字段 :玩家是否领取过战绩榜奖励存在user_info中对应字段名为 has_got_combat_reward 类型是int。</li>
+</ul>
+</blockquote>
+<h3 id="赛季的开始与结束"><a href="#赛季的开始与结束" class="headerlink" title="赛季的开始与结束"></a>赛季的开始与结束</h3><p>在CombatSeasonMgr类的tick中管控当前赛季的状态，主要有赛季开始，赛季进行中，赛季结束。</p>
+<blockquote>
+<ul>
+<li>赛季开始<br>在赛季开始之后，需要清空掉玩家身上的战绩值<strong>combatIntergal*包括内存中的Usernode与db中userinfo的相应字段。<br>清空内存中的战绩榜</strong>UserInfoList<strong>，及db中的 **t_combat_rank</strong> 表单数据和 <strong>t_combat_rank_last_week</strong>表单数据，由于赛季开始的清数据操作只在特应时间点去进行，为避免启服，关服可能导致错过操作，需要用<strong>t_combat_rank_last_week</strong> 表来判断是否做过清数据的操作，很容易发现只有在赛季结束和赛季开始之间，这个表里面才会有数据。也就避免了关服，启服所可能带来的边界问题。</li>
+<li><em>ws2dp_clear_combat_rank*</em> ： 清空战绩榜的通信协议</li>
+<li><em>ws2dp_reset_user_combat_season_info msg;  msg.type = e_reset_combat_info_intergal*</em>;   ： 清空玩家身上战绩值得通信协议</li>
+<li><em>ws2dp_reset_user_combat_season_info msg;  msg.type = e_reset_combat_info_type_clear_last_season_combat_rank;*</em>  ： 清空t_combat_rank_last_week 表的通信协议</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>赛季进行中 :赛季进行中时，在CombatSeasonMgr类中的Tick时刻判断是否到了当前赛季结束时间，满足条件便进入赛季结束状态，执行相应操作，并将tick中的is_runing_置成false。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat6.png" alt="combat6"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>赛季结束 :当前赛季结束后，将cur_season_end值置成True，当前榜单在新赛季开始前便不在发生变化。<br>计算下赛季的开始时间<br>在t_combat_rank_last_week表为空的前提下,将玩家身上的<strong>last_combat_season_ranking</strong>,  <strong>last_combay_season_intergal</strong> 置成当前赛季的排名和战绩, <strong>has_got_combat_reward</strong> 置成false。同时将这赛季的t_combat_rank数据存到t_combat_rank_last_week中。 用于保证赛季结束的操作也只做一次，来防止因为启服，关服可能导致的边界问题。</li>
+<li><em>ws2dp_reset_user_combat_season_info msg;  msg.type = e_reset_combat_info_type_season_info。*</em> ： 清空玩家相应数据的协议</li>
+<li><em>ws2dp_save_user_last_combat_season_info *</em> ： 修改userinfo中的last_combat_seaon 相应数据协议<br>DB函数如下:<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat7.png" alt="combat7"> 清空玩家相应信息<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat8.png" alt="combat8"><br>重置玩家last_combat_season_info</li>
+</ul>
+</blockquote>
+<h3 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h3><p>在ws启服之后，CombatSeaonMgr中的Init初始化战绩榜相应数据。</p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat9.png" alt="combat9"> </p>
+<p><strong>CombatScore_Ranking</strong> 的Init去load战绩榜单数据。<br><strong>ws2dp_req_combat_rank_info</strong>  ： 请求加载战绩榜单的协议<br><strong>ws2dp_save_user_last_combat_season_info</strong>  ： 修改userinfo中的last_combat_seaon 相应数据协议<br><strong>ws2dp_reset_user_combat_season_info msg; msg.type = e_reset_combat_info_judge_need_reset;</strong>   ： 判断是否需要进行赛季开始操作的协议<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat10.png" alt="combat10"><br>对应db函数<br>这里需要特别注意的是，若启服判断当前赛季结束了，需要进行赛季结束的操作时，需要确保db已经读出来赛季榜单数据，由于此处存在一个通信延迟，若是没读出来需要在tick中等读取数据完毕后，在执行相应操作。<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat11.png" alt="combat11"> </p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat12.png" alt="combat12"> </p>
+<h3 id="c-s-通信接口"><a href="#c-s-通信接口" class="headerlink" title="c/s 通信接口"></a>c/s 通信接口</h3><p>与战绩榜相关的通信协议均在lobby.proto中，搜索combat关键字即可。</p>
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat13.png" alt="combat13"> </p>
+<p>在请求自身当前赛季战绩榜数据时，会根据不同的状态做相应客户端显示。如新用户，第一周，上周在榜单内，上周在榜单外。同时要将奖励ID带过去。<br>对应函数：<br><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat14.png" alt="combat14"> </p>
+<h3 id="重要的变量-函数"><a href="#重要的变量-函数" class="headerlink" title="重要的变量/函数"></a>重要的变量/函数</h3><ul>
+<li><p><strong>combat_season_mgr.h</strong></p>
+</li>
+<li><p><em>void CombatSeasonMgr::Init()*</em>                             :  启服后初始化战绩榜模块相关数据的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: InitNextSeasonInfo ()*</em>  ：赛季结束后，计算下赛季战绩榜开始、结束时间的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: OnCurSeasonBegin ()*</em>  ：赛季开始，进行相应数据处理的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: OnCurSeasonEnd ()*</em>        ：赛季结束，进行相应数据处理的函数</p>
+</li>
+<li><p>combatsc_ranking.h</p>
+</li>
+<li><p><em>void CombatSeasonMgr::Init()*</em>                             :  启服后初始化战绩榜模块相关数据的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: InitNextSeasonInfo ()*</em>  ：赛季结束后，计算下赛季战绩榜开始、结束时间的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: OnCurSeasonBegin ()*</em>  ：赛季开始，进行相应数据处理的函数</p>
+</li>
+<li><p><em>void CombatSeasonMgr:: OnCurSeasonEnd ()*</em>        ：赛季结束，进行相应数据处理的函数</p>
+</li>
+<li><p>lobby_service.hpp</p>
+</li>
+<li><p><em>void UserNode::RespCombatRankList()*</em>                                                ：返回给客户端战绩榜单信息</p>
+</li>
+<li><p><em>void UserNode::RespSelfCombatInfo()*</em>                                                    ：返回给客户端自身战绩信息</p>
+</li>
+<li><p><em>void LobbyService::ReqLoadUseMostUseHeroes(guid_64 const&amp; user_guid)*</em>    ：获取玩家常用英雄</p>
+</li>
+<li><p><em>void UserNode::HandleCombatReward()*</em>                                                    ：领取战绩榜奖励</p>
+</li>
+<li><p><em>void UserNode::CombatRankUpdate(int32 hero_id_use)*</em>                                ：一局游戏结束的战绩榜相关操作</p>
+</li>
+<li><p>重要的变量</p>
+</li>
+<li><p><em>int32 combatIntergal;*</em>                        ：userInfo中的当前赛季战绩值</p>
+</li>
+<li><p><em>int32 last_combat_season_ranking;*</em>            ：userInfo中的上赛季战绩榜排名</p>
+</li>
+<li><p><em>int32 last_combat_season_intergal;*</em>          ：userInfo中的上赛季战绩值</p>
+</li>
+<li><p><em>bool  has_got_combat_reward;*</em>              ：userInfo中的是否领取过战绩榜奖励。</p>
+</li>
+<li><p><em>xstring cur_season_end_time;*</em>                      ：CombatSeaonMgr中的当前赛季结束时间</p>
+</li>
+<li><p><em>xstring cur_season_begin_time;*</em>                      : CombatSeasonMgr中的当前赛季开始时间</p>
+</li>
+<li><p><em>xstring first_season_end_time;*</em>                : CombatSeasonMgr中的第一周赛季结束时间</p>
+</li>
+<li><p><em>bool need_wait_rank_load;*</em>                          : CombatSeasonMgr 中用于判断是否需要等榜单load完，再进行赛季结束的相应操作</p>
+</li>
+<li><p><em>list<user_crank_info> UserInfoList;*</user_crank_info></em>          ：CombatScore_Ranking 中的榜单list</p>
+</li>
+<li><p><em>bool load_from_db_over;*</em>                             ：CombatScore_Ranking 中的判断是否从库中load完成的变量</p>
+</li>
+<li><p><em>bool is_rank_dirty;*</em>                                         ：CombatScore_Ranking 中的判断是否需要执行存库操作的变量</p>
+</li>
+</ul>
+<h3 id="关键日志"><a href="#关键日志" class="headerlink" title="关键日志"></a>关键日志</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//赛季结束</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"CombatRankSeasonEnd EndTime: "</span>) &lt;&lt; cur_season_end_time); </span><br><span class="line"><span class="comment">//赛季开始	</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"CombatRankSeasonBegin BeginTime: "</span>) &lt;&lt; cur_season_begin_time); </span><br><span class="line"><span class="comment">//玩家进入战绩榜单</span></span><br><span class="line">SERVER_LOG_FATAL(<span class="string">"AddCombatRankInfo user_guid: "</span> &lt;&lt; user_guid &lt;&lt; <span class="string">" account: "</span> &lt;&lt; user_account &lt;&lt; <span class="string">" score: "</span> &lt;&lt; combatIntegral &lt;&lt; <span class="string">" list_len: "</span> &lt;&lt; UserInfoList.size())； </span><br><span class="line"><span class="comment">//完成load战绩榜</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"RespCombatRankInfo data_num: "</span>) &lt;&lt; msg-&gt;data_num &lt;&lt; _XTEXT(<span class="string">" invalid user_guid num: "</span>) &lt;&lt; invalid_guid_num);							</span><br><span class="line"><span class="comment">//战绩榜存库</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"UpdateCombatRankToDb  data_num:"</span>) &lt;&lt; rank_num &lt;&lt; <span class="string">" invalid user_guid num: "</span> &lt;&lt; invalid_guid_num);</span><br><span class="line"><span class="comment">//清空战绩榜</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"ClearCombatRank: "</span>) &lt;&lt; time_helper::get_current_time());</span><br><span class="line"><span class="comment">//赛季结束时维护玩家last_combat_rank 和 last_combat_intergal</span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"SetUserLastCombatSeasonInfo UserNum: "</span>) &lt;&lt; UserInfoList.size());</span><br><span class="line"><span class="comment">//重置玩家战绩榜相关数据   type = 0: 赛季结束时更新数据  type = 1: 清空玩家战绩值 type = 2: </span></span><br><span class="line"><span class="comment">//判断是否需要进行 ’赛季开始’操作 type = 3 ：删除表t_combat_rank_last_week 中的数据 </span></span><br><span class="line">SERVER_LOG_FATAL(_XTEXT(<span class="string">"ResetUserCombatSeasonInfo type "</span>) &lt;&lt; pdata-&gt;type);</span><br></pre></td></tr></table></figure>
+
+<h3 id="相应配置"><a href="#相应配置" class="headerlink" title="相应配置"></a>相应配置</h3><p>主要在表133 战绩比赛记录 和 表134 战绩排名奖励<br>对应参数的配置方法详见 需求文档。</p>
+<h3 id="遇到的问题及相应解决方案"><a href="#遇到的问题及相应解决方案" class="headerlink" title="遇到的问题及相应解决方案"></a>遇到的问题及相应解决方案</h3><p>因为战绩榜是以周为周期，循环进行的一个榜单，严格意义上来讲是不存在榜单中无数据的时间点。起初做功能的时候仅在tick中判断当前时间是否到了赛季结束，或赛季开始的时候。在一次服务器维护中，由于意外情况导致启服时间较晚，错过了重置数据的时间点，导致榜单上赛季的数据没有清掉。忽视了这一边界情况的处理。<br>对应解决方法，用两张表去做榜单维护<br> <img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/combat15.png" alt="combat15"><br>t_combat_rank_last_week表来判断是否做过赛季结束和赛季开始操作的依据。<br>在赛季结束和下一赛季开始之前的这段时间中，t_combat_rank_last_week表中的数据和t_combat_rank表数据应完全一致，在这段时间启服就可以依据t_combat_rank_last_week表中的数据量来判断是否做过赛季结束的操作。</p>
+<p>在赛季开始之后 t_combat_rank_last_week表中的数据也就没有了存在的必要了，在赛季进行中过程启服依旧通过表中的数据量来判断是否做过赛季开始的操作。<br>这样赛季开始，赛季结束对应的数据操作就从一个时间点，变成周期内任意时间都去执行的操作。</p>
+<p> = = 留一份功能模块文档的模板。没什么实质内容，相关代码地址如下.<br> <a href="https://github.com/sabistian/CombatModule" target="_blank" rel="noopener">这里获取</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="邱灵雨 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="邱灵雨 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 邱灵雨 的个人博客">邱灵雨</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://sabistian.cn/2019/10/23/功能模块-战绩榜/" title="功能模块 - 战绩榜">http://sabistian.cn/2019/10/23/功能模块-战绩榜/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 邱灵雨 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/05/Methodsoffindingprimenumbers/" rel="next" title="Methods of finding prime numbers">
+                <i class="fa fa-chevron-left"></i> Methods of finding prime numbers
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/01/高性能MySQL读书笔记(一)/" rel="prev" title="高性能MySQL读书笔记（一）">
+                高性能MySQL读书笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headicon.png" alt="邱灵雨">
+            
+              <p class="site-author-name" itemprop="name">邱灵雨</p>
+              <p class="site-description motion-element" itemprop="description">灵雨既零</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sabistian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sebistian@163.com" target="_blank" title="Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5975979965/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kuai-shen-l/activities" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#功能模块-战绩榜"><span class="nav-number">1.</span> <span class="nav-text">功能模块 - 战绩榜</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能需求"><span class="nav-number">1.1.</span> <span class="nav-text">功能需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总体概述"><span class="nav-number">1.2.</span> <span class="nav-text">总体概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能概述"><span class="nav-number">1.2.1.</span> <span class="nav-text">功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关类"><span class="nav-number">1.2.3.</span> <span class="nav-text">相关类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序描述"><span class="nav-number">1.3.</span> <span class="nav-text">程序描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#战绩值计算"><span class="nav-number">1.3.1.</span> <span class="nav-text">战绩值计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#榜单内容变化以及数据存储"><span class="nav-number">1.3.2.</span> <span class="nav-text">榜单内容变化以及数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#战绩榜奖励"><span class="nav-number">1.3.3.</span> <span class="nav-text">战绩榜奖励</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赛季的开始与结束"><span class="nav-number">1.3.4.</span> <span class="nav-text">赛季的开始与结束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Init"><span class="nav-number">1.3.5.</span> <span class="nav-text">Init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-s-通信接口"><span class="nav-number">1.3.6.</span> <span class="nav-text">c/s 通信接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要的变量-函数"><span class="nav-number">1.3.7.</span> <span class="nav-text">重要的变量/函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键日志"><span class="nav-number">1.3.8.</span> <span class="nav-text">关键日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相应配置"><span class="nav-number">1.3.9.</span> <span class="nav-text">相应配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题及相应解决方案"><span class="nav-number">1.3.10.</span> <span class="nav-text">遇到的问题及相应解决方案</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱灵雨</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
