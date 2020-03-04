@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, 
+maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xxxxxxx.xxx"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux 常用指令(二)  find awk wc ps more   Linux下的常用指令，便于查看log和一些文件操作。对于Cygwin 在Win环境下出现command not found 问题，两种解决方式:1、将cygwin的bin目录 加到环境变量中的系统变量里:2、source /etc/profile pwd 显示当前的路径ps  查看当前进程 win cmd是tasklist">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用指令（二）">
+<meta property="og:url" content="http://sabistian.cn/2019/11/18/LinuxInstructions-2/index.html">
+<meta property="og:site_name" content="Sabistian    |      Dear">
+<meta property="og:description" content="Linux 常用指令(二)  find awk wc ps more   Linux下的常用指令，便于查看log和一些文件操作。对于Cygwin 在Win环境下出现command not found 问题，两种解决方式:1、将cygwin的bin目录 加到环境变量中的系统变量里:2、source /etc/profile pwd 显示当前的路径ps  查看当前进程 win cmd是tasklist">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/linux1.png">
+<meta property="og:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/linux2.png">
+<meta property="og:updated_time" content="2020-03-04T16:16:00.748Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux常用指令（二）">
+<meta name="twitter:description" content="Linux 常用指令(二)  find awk wc ps more   Linux下的常用指令，便于查看log和一些文件操作。对于Cygwin 在Win环境下出现command not found 问题，两种解决方式:1、将cygwin的bin目录 加到环境变量中的系统变量里:2、source /etc/profile pwd 显示当前的路径ps  查看当前进程 win cmd是tasklist">
+<meta name="twitter:image" content="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/linux1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sabistian.cn/2019/11/18/LinuxInstructions-2/">
+
+
+
+
+
+  <title>Linux常用指令（二） | Sabistian    |      Dear</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sabistian    |      Dear</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/11/18/LinuxInstructions-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux常用指令（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-18T19:03:09+08:00">
+                2019-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux-常用指令-二"><a href="#Linux-常用指令-二" class="headerlink" title="Linux 常用指令(二)"></a>Linux 常用指令(二)</h1><blockquote>
+<ul>
+<li>find</li>
+<li>awk</li>
+<li>wc</li>
+<li>ps</li>
+<li>more</li>
+</ul>
+</blockquote>
+<p>Linux下的常用指令，便于查看log和一些文件操作。<br>对于Cygwin 在Win环境下出现command not found 问题，两种解决方式:<br>1、将cygwin的bin目录 加到环境变量中的系统变量里:<br>2、source /etc/profile</p>
+<p>pwd 显示当前的路径<br>ps  查看当前进程 win cmd是tasklist<br>exit 执行退出  win 是 taskkill<br>cd ~ 切换到用户目录下</p>
+<a id="more"></a> 
+
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>Linux find命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Syntax:</span><br><span class="line">find   path   -option   [-print]   [-exec -ok command ] &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>name选项<br>eg.如果想在当前目录查找文件名以一个个小写字母开头，最后是4到9加上.log结束的文件：<br>find . -name “[a-z]*[4-9].log” -print<br>find ~ -name “*.log” -print    相当于从根目录下开始查找文件</p>
+</li>
+<li><p>perm选项<br>perm 根据文件的权限去查找文件<br>find -perm mode  文件三种权限 r(读)、w(写)、x(可执行),那么这三者之间有什么区别呢？解释之前首先得简单说一下linux中文件权限位的概念。<br>在linux中文件或目录有三者权限r,w,x，代表的含义分别是读、写、可执行。<br>而一个文件或目录的属性中又包括所属用户u、所属组g、其他o三个部分的属性，分别表示所属用户、所属组、其他用户对这个文件所拥有的权限。<br>看起来大概是这个样子：</p>
+<blockquote>
+<p> 所属用户    所属组    其他<br>rwx         rwx      rwx</p>
+</blockquote>
+</li>
+</ul>
+<p>find -perm mode ， 表示严格匹配，也就是你的文件权限位转换成对应的十进制数字与mode一模一样，那么匹配成功，需要注意的是如果mode给的数字不足3位，那么前面自动添0(严格的说是不足4位，原因就是前面所说的setuid,setgid，稍后解释)</p>
+<p>find -perm -mode ， 表示mode中转换成二进制的1在文件权限位里面必须匹配，比如mode=644那么转换成二进制为110 100 100，<br>而被查找的文件的权限位也可以被转换成一个二进制数，两者在位上为1的部分必须完全匹配，而0则不管。<br>例如被查找的文件的权限为转换成二进制数是111 111 111那么这个比如被匹配，而假如是100 100 100那么则不会匹配。<br>所以这个’-‘的作用归结起来就是匹配比mode权限更充足的文件(找不到什么词语来形容了)</p>
+<p>find -perm +mode ， 与 -mode的区别是+mode只需其中的任意一个1的部分被匹配，<br>-mode是所有1的部分都必须被匹配，同样+mode也不管0位。</p>
+<ul>
+<li>忽略某个目录：<br>如果在查找文件时希望忽略某个目录，因为你知道那个目录中没有你所要查找的文件，那么可以使用-prune选项来指出需要忽略的目录。<br>在使用-prune选项时要当心，因为如果你同时使用了-depth选项，那么-prune选项就会被find命令忽略。<br>如果希望在test目录下查找文件，但不希望在test/test3目录下查找，可以用：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find test -path <span class="string">"test/test3"</span> -prune -o -print</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用find查找文件的时候怎么避开某个文件目录：<br>在test 目录下查找不在test4子目录之内的所有文件</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">find test -path <span class="string">"test/test4"</span> -prune -o -print</span><br><span class="line">find [-path ..] [expression] </span><br><span class="line">-path <span class="string">"test"</span> -prune -o -print 是 -path <span class="string">"test"</span> -a -prune -o -print 的简写表达式按顺序求值,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//避开多个文件夹:</span></span><br><span class="line">find test \( -path test/test4 -o -path test/test3 \) -prune -o -print </span><br><span class="line"></span><br><span class="line"><span class="comment">//prune 是在类似修剪？的东西0 0 相当于条件为真忽视掉的意思把</span></span><br><span class="line"><span class="keyword">if</span> -path <span class="string">"test"</span> then  </span><br><span class="line">-prune  </span><br><span class="line"><span class="keyword">else</span>  </span><br><span class="line">-print</span><br><span class="line"></span><br><span class="line"><span class="comment">//查找某一确定文件，-name等选项加在-o 之后</span></span><br><span class="line">find test \(-path test/test4 -o -path test/test3 \) -prune -o -name <span class="string">"*.log"</span> -print</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按照更改时间或访问时间等查找文件：<br>如果希望按照更改时间来查找文件，可以使用mtime,atime或ctime选项。<br>如果系统突然没有可用空间了，很有可能某一个文件的长度在此期间增长迅速，这时就可以用mtime选项来查找这样的文件。<br>用减号-来限定更改时间在距今n日以内的文件，而用加号+来限定更改时间在距今n日以前的文件。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//希望在系统根目录下查找更改时间在5日以内的文件，可以用：</span></span><br><span class="line">find / -mtime <span class="number">-5</span> -print</span><br><span class="line"></span><br><span class="line"><span class="comment">//为了在/var/adm目录下查找更改时间在3日以前的文件，可以用:</span></span><br><span class="line">find /var/adm -mtime +<span class="number">3</span> -print</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查找比某个文件新或旧的文件：<br>如果希望查找更改时间比某个文件新但比另一个文件旧的所有文件，可以使用-newer选项。<br>它的一般形式为：<br>newest_file_name ! oldest_file_name<br>其中，！是逻辑非符号。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找更改时间比文件log2012.log新但比文件log2017.log旧的文件</span></span><br><span class="line">find -newer log2012.<span class="built_in">log</span> ! -newer log2017.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//查找更改时间在比log2012.log文件新的文件  </span></span><br><span class="line">find . -newer log2012.<span class="built_in">log</span> -print</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用size选项：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">实例<span class="number">1</span>：在当前目录下查找文件长度大于<span class="number">1</span> M字节的文件</span><br><span class="line">命令：</span><br><span class="line">find . -size +<span class="number">1000000</span>c -print</span><br><span class="line">实例<span class="number">2</span>：在/home/apache目录下查找文件长度恰好为<span class="number">100</span>字节的文件:  </span><br><span class="line">命令：</span><br><span class="line">find /home/apache -size <span class="number">100</span>c -print  </span><br><span class="line">实例<span class="number">3</span>：在当前目录下查找长度超过<span class="number">10</span>块的文件（一块等于<span class="number">512</span>字节） </span><br><span class="line">命令：</span><br><span class="line">find . -size +<span class="number">10</span> -print</span><br></pre></td></tr></table></figure>
+
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><p>awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。<br>awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，<strong>灵活性是awk最大的优势</strong>。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>awk [选项参数] ‘script’ var=value file(s)<br>或
+awk [选项参数] -f scriptfile var=value file(s)</p>
+<p>EG:</p>
+<p>log.txt文本内容如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> <span class="keyword">this</span> is a test</span><br><span class="line"><span class="number">3</span> Are you like awk</span><br><span class="line">This's a test</span><br><span class="line"><span class="number">10</span> There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
+<li>用法一：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'&#123;[pattern] action&#125;'</span> &#123;filenames&#125;   <span class="comment"># 行匹配语句 awk '' 只能用单引号</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 每行按空格或TAB分割，输出文本中的1、4项</span></span><br><span class="line">$ awk <span class="string">'&#123;print $1,$4&#125;'</span> log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line">$ awk <span class="string">'&#123;printf "%-8s %-10s\n",$1,$4&#125;'</span> log.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用法二：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">awk -F  <span class="comment">#-F相当于内置变量FS, 指定分割字符</span></span><br><span class="line"><span class="comment"># 使用","分割</span></span><br><span class="line">$  awk -F, <span class="string">'&#123;print $1,$2&#125;'</span>   log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用内建变量</span></span><br><span class="line">$ awk <span class="string">'BEGIN&#123;FS=","&#125; &#123;print $1,$2&#125;'</span>     log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用多个分隔符.先使用空格分割，然后对分割结果再使用","分割</span></span><br><span class="line">$ awk -F <span class="string">'[ ,]'</span>  <span class="string">'&#123;print $1,$2,$5&#125;'</span>   log.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用法三：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">awk -v  <span class="comment"># 设置变量</span></span><br><span class="line">实例：</span><br><span class="line"></span><br><span class="line">$ awk -va=<span class="number">1</span> <span class="string">'&#123;print $1,$1+a&#125;'</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line"><span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span></span><br><span class="line">This<span class="string">'s 1</span></span><br><span class="line"><span class="string">10 11</span></span><br><span class="line"><span class="string">$ awk -va=1 -vb=s '</span>&#123;<span class="keyword">print</span> $<span class="number">1</span>,$<span class="number">1</span>+a,$<span class="number">1</span>b&#125;<span class="string">' log.txt</span></span><br><span class="line"><span class="string">---------------------------------------------</span></span><br><span class="line"><span class="string">2 3 2s</span></span><br><span class="line"><span class="string">3 4 3s</span></span><br><span class="line"><span class="string">This'</span>s <span class="number">1</span> This<span class="string">'ss</span></span><br><span class="line"><span class="string">10 11 10s</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用法四：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">awk -f &#123;awk脚本&#125; &#123;文件名&#125;</span><br><span class="line">实例：</span><br><span class="line"></span><br><span class="line">$ awk -f cal.awk log.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/linux1.png" alt="linux1"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">过滤第一列大于<span class="number">2</span>的行</span><br><span class="line">$ awk <span class="string">'$1&gt;2'</span> log.txt    <span class="comment">#命令</span></span><br><span class="line"></span><br><span class="line">过滤第一列等于<span class="number">2</span>的行</span><br><span class="line">$ awk <span class="string">'$1==2 &#123;print $1,$3&#125;'</span> log.txt    <span class="comment">#命令</span></span><br><span class="line"></span><br><span class="line">过滤第一列大于<span class="number">2</span>并且第二列等于<span class="string">'Are'</span>的行</span><br><span class="line">$ awk <span class="string">'$1&gt;2 &amp;&amp; $2=="Are" &#123;print $1,$2,$3&#125;'</span> log.txt    <span class="comment">#命令</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://sabistianblogimg.oss-cn-beijing.aliyuncs.com/linux2.png" alt="linux2"> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F\<span class="string">' '</span>BEGIN&#123;printf <span class="string">"%4s %4s %4s %4s %4s %4s %4s %4s %4s\n"</span>,<span class="string">"FILENAME"</span>,<span class="string">"ARGC"</span>,<span class="string">"FNR"</span>,<span class="string">"FS"</span>,<span class="string">"NF"</span>,<span class="string">"NR"</span>,<span class="string">"OFS"</span>,<span class="string">"ORS"</span>,<span class="string">"RS"</span>;printf <span class="string">"---------------------------------------------\n"</span>&#125; &#123;printf <span class="string">"%4s %4s %4s %4s %4s %4s %4s %4s %4s\n"</span>,FILENAME,ARGC,FNR,FS,NF,NR,OFS,ORS,RS&#125;<span class="string">'  log.txt</span></span><br><span class="line"><span class="string">FILENAME ARGC  FNR   FS   NF   NR  OFS  ORS   RS</span></span><br><span class="line"><span class="string">---------------------------------------------</span></span><br><span class="line"><span class="string">log.txt    2    1    '</span>    <span class="number">1</span>    <span class="number">1</span></span><br><span class="line">log.txt    <span class="number">2</span>    <span class="number">2</span>    <span class="string">'    1    2</span></span><br><span class="line"><span class="string">log.txt    2    3    '</span>    <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">log.txt    <span class="number">2</span>    <span class="number">4</span>    <span class="string">'    1    4</span></span><br><span class="line"><span class="string"># 输出顺序号 NR, 匹配文本行号</span></span><br><span class="line"><span class="string">$ awk '</span>&#123;<span class="keyword">print</span> NR,FNR,$<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;<span class="string">' log.txt</span></span><br><span class="line"><span class="string">---------------------------------------------</span></span><br><span class="line"><span class="string">1 1 2 this is</span></span><br><span class="line"><span class="string">2 2 3 Are you</span></span><br><span class="line"><span class="string">3 3 This'</span>s a test</span><br><span class="line"><span class="number">4</span> <span class="number">4</span> <span class="number">10</span> There are</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定输出分割符</span></span><br><span class="line">$  awk <span class="string">'&#123;print $1,$2,$5&#125;'</span> OFS=<span class="string">" $ "</span>  log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line"><span class="number">2</span> $ this $ test</span><br><span class="line"><span class="number">3</span> $ Are $ awk</span><br><span class="line">This<span class="string">'s $ a $</span></span><br><span class="line"><span class="string">10 $ There $</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用正则，字符串匹配</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出第二列包含 "th"，并打印第二列与第四列</span></span><br><span class="line">$ awk <span class="string">'$2 ~ /th/ &#123;print $2,$4&#125;'</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line">this a</span><br><span class="line">~ 表示模式开始。// 中是模式。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出包含"re" 的行</span></span><br><span class="line">$ awk <span class="string">'/re/ '</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line"><span class="number">3</span> Are you like awk</span><br><span class="line"><span class="number">10</span> There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>忽略大小写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;IGNORECASE=1&#125; /this/'</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line"><span class="number">2</span> this <span class="keyword">is</span> a test</span><br><span class="line">This<span class="string">'s a test</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模式取反</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'$2 !~ /th/ &#123;print $2,$4&#125;'</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br><span class="line">$ awk <span class="string">'!/th/ &#123;print $2,$4&#125;'</span> log.txt</span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<h3 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h3><p>关于awk脚本，我们需要注意两个关键词BEGIN和END。</p>
+<blockquote>
+<p>BEGIN{ 这里面放的是执行前的语句 }<br>END {这里面放的是处理完所有的行后要执行的语句 }<br>{这里面放的是处理每一行时要执行的语句}</p>
+</blockquote>
+<p>EG:<br>假设有这么一个文件（学生成绩表）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cat score.txt</span><br><span class="line">Marry   <span class="number">2143</span> <span class="number">78</span> <span class="number">84</span> <span class="number">77</span></span><br><span class="line">Jack    <span class="number">2321</span> <span class="number">66</span> <span class="number">78</span> <span class="number">45</span></span><br><span class="line">Tom     <span class="number">2122</span> <span class="number">48</span> <span class="number">77</span> <span class="number">71</span></span><br><span class="line">Mike    <span class="number">2537</span> <span class="number">87</span> <span class="number">97</span> <span class="number">95</span></span><br><span class="line">Bob     <span class="number">2415</span> <span class="number">40</span> <span class="number">57</span> <span class="number">62</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们的awk脚本如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ cat cal.awk</span><br><span class="line"><span class="comment">#!/bin/awk -f</span></span><br><span class="line"><span class="comment">#运行前</span></span><br><span class="line">BEGIN &#123;</span><br><span class="line">    math = <span class="number">0</span></span><br><span class="line">    english = <span class="number">0</span></span><br><span class="line">    computer = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line">    printf <span class="string">"NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL\n"</span></span><br><span class="line">    printf <span class="string">"---------------------------------------------\n"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#运行中</span></span><br><span class="line">&#123;</span><br><span class="line">    math+=$<span class="number">3</span></span><br><span class="line">    english+=$<span class="number">4</span></span><br><span class="line">    computer+=$<span class="number">5</span></span><br><span class="line">    printf <span class="string">"%-6s %-6s %4d %8d %8d %8d\n"</span>, $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>,$<span class="number">4</span>,$<span class="number">5</span>, $<span class="number">3</span>+$<span class="number">4</span>+$<span class="number">5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#运行后</span></span><br><span class="line">END &#123;</span><br><span class="line">    printf <span class="string">"---------------------------------------------\n"</span></span><br><span class="line">    printf <span class="string">"  TOTAL:%10d %8d %8d \n"</span>, math, english, computer</span><br><span class="line">    printf <span class="string">"AVERAGE:%10.2f %8.2f %8.2f\n"</span>, math/NR, english/NR, computer/NR</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来看一下执行结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ awk -f cal.awk score.txt</span><br><span class="line">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL</span><br><span class="line">---------------------------------------------</span><br><span class="line">Marry  <span class="number">2143</span>     <span class="number">78</span>       <span class="number">84</span>       <span class="number">77</span>      <span class="number">239</span></span><br><span class="line">Jack   <span class="number">2321</span>     <span class="number">66</span>       <span class="number">78</span>       <span class="number">45</span>      <span class="number">189</span></span><br><span class="line">Tom    <span class="number">2122</span>     <span class="number">48</span>       <span class="number">77</span>       <span class="number">71</span>      <span class="number">196</span></span><br><span class="line">Mike   <span class="number">2537</span>     <span class="number">87</span>       <span class="number">97</span>       <span class="number">95</span>      <span class="number">279</span></span><br><span class="line">Bob    <span class="number">2415</span>     <span class="number">40</span>       <span class="number">57</span>       <span class="number">62</span>      <span class="number">159</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">  TOTAL:       <span class="number">319</span>      <span class="number">393</span>      <span class="number">350</span></span><br><span class="line">AVERAGE:     <span class="number">63.80</span>    <span class="number">78.60</span>    <span class="number">70.00</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>另外一些实例</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#AWK的hello world程序为：</span></span><br><span class="line">BEGIN &#123; <span class="keyword">print</span> <span class="string">"Hello, world!"</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算文件大小</span></span><br><span class="line">$ ls -l *.txt | awk <span class="string">'&#123;sum+=$6&#125; END &#123;print sum&#125;'</span></span><br><span class="line">--------------------------------------------------</span><br><span class="line"><span class="number">666581</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#从文件中找出长度大于80的行</span></span><br><span class="line">awk <span class="string">'length&gt;80'</span> log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印九九乘法表</span></span><br><span class="line">seq <span class="number">9</span> | sed <span class="string">'H;g'</span> | awk -v RS=<span class="string">''</span> <span class="string">'&#123;for(i=1;i&lt;=NF;i++)printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>awk、sed、grep更适合的方向：<br>grep 更适合单纯的查找或匹配文本<br>sed 更适合编辑匹配到的文本<br>awk 更适合格式化文本，对文本进行较复杂格式处理</li>
+</ul>
+<p>关于awk内建变量的见解，简单易懂</p>
+<p>解释一下变量：</p>
+<p>变量：分为内置变量和自定义变量;输入分隔符FS和输出分隔符OFS都属于内置变量。</p>
+<p>内置变量就是awk预定义好的、内置在awk内部的变量，而自定义变量就是用户定义的变量。</p>
+<blockquote>
+<ul>
+<li>FS(Field Separator)：输入字段分隔符， 默认为空白字符</li>
+<li>OFS(Out of Field Separator)：输出字段分隔符， 默认为空白字符</li>
+<li>RS(Record Separator)：输入记录分隔符(输入换行符)， 指定输入时的换行符</li>
+<li>ORS(Output Record Separate)：输出记录分隔符（输出换行符），输出时用指定符号代替换行符</li>
+<li>NF(Number for Field)：当前行的字段的个数(即当前行被分割成了几列)</li>
+<li>NR(Number of Record)：行号，当前处理的文本行的行号。</li>
+<li>FNR：各文件分别计数的行号</li>
+<li>ARGC：命令行参数的个数</li>
+<li>ARGV：数组，保存的是命令行所给定的各参数</li>
+</ul>
+</blockquote>
+<p>自定义变量的方法</p>
+<p>方法一：-v varname=value ，变量名区分字符大小写。<br>方法二：在program中直接定义。</p>
+<p><a href="https://www.runoob.com/w3cnote/awk-built-in-functions.html" target="_blank" rel="noopener">awk 函数使用方法</a></p>
+<h2 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h2><p>Word Count 命令，统计指定文本中的字节数、字数、行数，并将统计结果显示输出。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>wc [选项]文件…</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>统计指定文件中的字节数、字数、行数，并将统计结果显示输出。该命令统计指定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所指定文件的总统计数。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-c 统计字节数。</span><br><span class="line">-l 统计行数。</span><br><span class="line">-m 统计字符数。这个标志不能与 -c 标志一起使用。</span><br><span class="line">-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。</span><br><span class="line">-L 打印最长行的长度。</span><br><span class="line">-help 显示帮助信息</span><br><span class="line">--version 显示版本信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用来统计当前目录下的文件数</span></span><br><span class="line">ls -l | wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>是Process Status的缩写。ps命令用来列出系统中当前运行的那些进程。ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。<br>要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 ps 命令就是最基本同时也是非常强大的进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。<br>ps 为我们提供了进程的一次性的查看，它所提供的查看结果并不动态连续的；如果想对进程时间监控，应该用 top 工具。<br>kill 命令用于杀死进程。</p>
+<p>linux上进程有5种状态: </p>
+<ol>
+<li>运行(正在运行或在运行队列中等待) </li>
+<li>中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号) </li>
+<li>不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生) </li>
+<li>僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放) </li>
+<li>停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行) </li>
+</ol>
+<p>ps工具标识进程的5种状态码:<br>D 不可中断 uninterruptible sleep (usually IO)<br>R 运行 runnable (on run queue)<br>S 中断 sleeping<br>T 停止 traced or stopped<br>Z 僵死 a defunct (”zombie”) process </p>
+<h3 id="命令格式："><a href="#命令格式：" class="headerlink" title="命令格式："></a>命令格式：</h3><p>ps[参数]</p>
+<h3 id="命令功能："><a href="#命令功能：" class="headerlink" title="命令功能："></a>命令功能：</h3><p>用来显示当前进程的状态</p>
+<h3 id="命令参数："><a href="#命令参数：" class="headerlink" title="命令参数："></a>命令参数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">a               <span class="comment">#显示所有进程</span></span><br><span class="line">-a              <span class="comment">#显示同一终端下的所有程序</span></span><br><span class="line">-A              <span class="comment">#显示所有进程</span></span><br><span class="line">c               <span class="comment">#显示进程的真实名称</span></span><br><span class="line">-N              <span class="comment">#反向选择</span></span><br><span class="line">-e              <span class="comment">#等于“-A”</span></span><br><span class="line">e               <span class="comment">#显示环境变量</span></span><br><span class="line">f               <span class="comment">#显示程序间的关系</span></span><br><span class="line">-H              <span class="comment">#显示树状结构</span></span><br><span class="line">r               <span class="comment">#显示当前终端的进程</span></span><br><span class="line">T               <span class="comment">#显示当前终端的所有程序</span></span><br><span class="line">u               <span class="comment">#指定用户的所有进程</span></span><br><span class="line">-au             <span class="comment">#显示较详细的资讯</span></span><br><span class="line">-aux            <span class="comment">#显示所有包含其他使用者的行程 </span></span><br><span class="line">-C&lt;命令&gt;        <span class="comment">#列出指定命令的状况</span></span><br><span class="line">--lines&lt;行数&gt;   <span class="comment">#每页显示的行数</span></span><br><span class="line">--width&lt;字符数&gt; <span class="comment">#每页显示的字符数</span></span><br><span class="line">--help          <span class="comment">#显示帮助信息</span></span><br><span class="line">--version       <span class="comment">#显示版本显示</span></span><br></pre></td></tr></table></figure>
+
+<p>EG</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment">#找出与 cron 与 syslog 这两个服务有关的 PID 号码</span></span><br><span class="line"><span class="comment">#命令：ps aux</span></span><br><span class="line">ps aux | egrep <span class="string">'(cron|syslog)'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#把所有进程显示出来，并输出到ps001.txt文件</span></span><br><span class="line">ps -aux &gt; ps001.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="more"><a href="#more" class="headerlink" title="more"></a>more</h2><p>类似cat，cat是从上到下显示在屏幕上。more 会以一页一页的显示方便使用者逐页阅读，<br>最基本的指令就是按space就向下一页显示，按b会back，在启动时加载整个文件。</p>
+<h3 id="命令格式：-1"><a href="#命令格式：-1" class="headerlink" title="命令格式："></a>命令格式：</h3><p>more [-dlfpcsu ] [-num ] [+/ pattern] [+ linenum] [file … ] </p>
+<h3 id="命令功能：-1"><a href="#命令功能：-1" class="headerlink" title="命令功能："></a>命令功能：</h3><p>more命令和cat的功能一样都是查看文件里的内容，但有所不同的是more可以按页来查看文件的内容，还支持直接跳转行等功能。</p>
+<h3 id="命令参数：-1"><a href="#命令参数：-1" class="headerlink" title="命令参数："></a>命令参数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+n           <span class="comment">#从笫n行开始显示</span></span><br><span class="line">-n           <span class="comment">#定义屏幕大小为n行</span></span><br><span class="line">+/pattern    <span class="comment">#在每个档案显示前搜寻该字串（pattern），然后从该字串前两行之后开始显示  </span></span><br><span class="line">-c           <span class="comment">#从顶部清屏，然后显示</span></span><br><span class="line">-d           <span class="comment">#提示“Press space to continue，’q’ to quit（按空格键继续，按q键退出）”，禁用响铃功能</span></span><br><span class="line">-l           <span class="comment">#忽略Ctrl+l（换页）字符</span></span><br><span class="line">-p           <span class="comment">#通过清除窗口而不是滚屏来对文件进行换页，与-c选项相似</span></span><br><span class="line">-s           <span class="comment">#把连续的多个空行显示为一行</span></span><br><span class="line">-u           <span class="comment">#把文件内容中的下画线去掉</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常用操作命令："><a href="#常用操作命令：" class="headerlink" title="常用操作命令："></a>常用操作命令：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Enter       <span class="comment">#向下n行，需要定义。默认为1行</span></span><br><span class="line">Ctrl+F      <span class="comment">#向下滚动一屏</span></span><br><span class="line">空格键      <span class="comment">#向下滚动一屏</span></span><br><span class="line">Ctrl+B      <span class="comment">#返回上一屏</span></span><br><span class="line">=           <span class="comment">#输出当前行的行号</span></span><br><span class="line">：f         <span class="comment">#输出文件名和当前行的行号</span></span><br><span class="line">V           <span class="comment">#调用vi编辑器</span></span><br><span class="line">!命令       <span class="comment">#调用Shell，并执行命令 </span></span><br><span class="line">q           <span class="comment">#退出more</span></span><br></pre></td></tr></table></figure>
+
+<p>EG：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列一个目录下的文件，用more来分页显示</span></span><br><span class="line">ls -l  | more <span class="number">-5</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="邱灵雨 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="邱灵雨 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 邱灵雨 的个人博客">邱灵雨</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://sabistian.cn/2019/11/18/LinuxInstructions-2/" title="Linux常用指令（二）">http://sabistian.cn/2019/11/18/LinuxInstructions-2/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 邱灵雨 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/17/LinuxInstructions-1/" rel="next" title="Linux常用指令（一）">
+                <i class="fa fa-chevron-left"></i> Linux常用指令（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/23/读书笔记/" rel="prev" title="游戏编程算法与技巧-读书笔记（一）">
+                游戏编程算法与技巧-读书笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headicon.png" alt="邱灵雨">
+            
+              <p class="site-author-name" itemprop="name">邱灵雨</p>
+              <p class="site-description motion-element" itemprop="description">灵雨既零</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sabistian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sebistian@163.com" target="_blank" title="Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5975979965/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kuai-shen-l/activities" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-常用指令-二"><span class="nav-number">1.</span> <span class="nav-text">Linux 常用指令(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">1.1.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">1.2.</span> <span class="nav-text">awk</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.2.2.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk脚本"><span class="nav-number">1.2.3.</span> <span class="nav-text">awk脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wc"><span class="nav-number">1.3.</span> <span class="nav-text">wc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式"><span class="nav-number">1.3.1.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">1.3.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">1.3.3.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">1.3.4.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ps"><span class="nav-number">1.4.</span> <span class="nav-text">ps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令格式："><span class="nav-number">1.4.1.</span> <span class="nav-text">命令格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令功能："><span class="nav-number">1.4.2.</span> <span class="nav-text">命令功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令参数："><span class="nav-number">1.4.3.</span> <span class="nav-text">命令参数：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more"><span class="nav-number">1.5.</span> <span class="nav-text">more</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令格式：-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">命令格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令功能：-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">命令功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令参数：-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">命令参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用操作命令："><span class="nav-number">1.5.4.</span> <span class="nav-text">常用操作命令：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱灵雨</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
