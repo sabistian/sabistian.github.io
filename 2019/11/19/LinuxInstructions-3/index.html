@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, 
+maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xxxxxxx.xxx"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常用linux指令-杂项(三)文件夹管理1234567cd              //显示当前目录名或改变当前目录。md              //创建目录。rd              //删除一个目录。dir             //显示目录中的文件和子目录列表。tree            //以图形显示驱动器或路径的文件夹结构。path            //为可执行文">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用指令（三）">
+<meta property="og:url" content="http://sabistian.cn/2019/11/19/LinuxInstructions-3/index.html">
+<meta property="og:site_name" content="Sabistian    |      Dear">
+<meta property="og:description" content="常用linux指令-杂项(三)文件夹管理1234567cd              //显示当前目录名或改变当前目录。md              //创建目录。rd              //删除一个目录。dir             //显示目录中的文件和子目录列表。tree            //以图形显示驱动器或路径的文件夹结构。path            //为可执行文">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-05T16:02:50.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux常用指令（三）">
+<meta name="twitter:description" content="常用linux指令-杂项(三)文件夹管理1234567cd              //显示当前目录名或改变当前目录。md              //创建目录。rd              //删除一个目录。dir             //显示目录中的文件和子目录列表。tree            //以图形显示驱动器或路径的文件夹结构。path            //为可执行文">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sabistian.cn/2019/11/19/LinuxInstructions-3/">
+
+
+
+
+
+  <title>Linux常用指令（三） | Sabistian    |      Dear</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sabistian    |      Dear</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sabistian.cn/2019/11/19/LinuxInstructions-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱灵雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sabistian    |      Dear">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux常用指令（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T19:03:09+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="常用linux指令-杂项-三"><a href="#常用linux指令-杂项-三" class="headerlink" title="常用linux指令-杂项(三)"></a>常用linux指令-杂项(三)</h1><h2 id="文件夹管理"><a href="#文件夹管理" class="headerlink" title="文件夹管理"></a>文件夹管理</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd              <span class="comment">//显示当前目录名或改变当前目录。</span></span><br><span class="line">md              <span class="comment">//创建目录。</span></span><br><span class="line">rd              <span class="comment">//删除一个目录。</span></span><br><span class="line">dir             <span class="comment">//显示目录中的文件和子目录列表。</span></span><br><span class="line">tree            <span class="comment">//以图形显示驱动器或路径的文件夹结构。</span></span><br><span class="line">path            <span class="comment">//为可执行文件显示或设置一个搜索路径。</span></span><br><span class="line">xcopy           <span class="comment">//复制文件和目录树</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type                    <span class="comment">//显示文本文件的内容。</span></span><br><span class="line">copy                    <span class="comment">//将一份或多份文件复制到另一个位置。</span></span><br><span class="line">del                     <span class="comment">//删除一个或数个文件。</span></span><br><span class="line">move                    <span class="comment">//移动文件并重命名文件和目录。(Windows XP Home Edition 中没有)</span></span><br><span class="line">ren                     <span class="comment">//重命名文件。</span></span><br><span class="line">replace                 <span class="comment">//替换文件。</span></span><br><span class="line">attrib                  <span class="comment">//显示或更改文件属性。</span></span><br><span class="line">find                    <span class="comment">//搜索字符串。</span></span><br><span class="line">fc                      <span class="comment">//比较两个文件或两个文件集并显示它们之间的不同</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ping                    <span class="comment">//进行网络连接测试、名称解析</span></span><br><span class="line">ftp                     <span class="comment">//文件传输</span></span><br><span class="line">net                     <span class="comment">//网络命令集及用户管理</span></span><br><span class="line">telnet                  <span class="comment">//远程登陆</span></span><br><span class="line">ipconfig                <span class="comment">//显示、修改 TCP/IP 设置</span></span><br><span class="line">msg                     <span class="comment">//给用户发送消息</span></span><br><span class="line">arp                     <span class="comment">//显示、修改局域网的 IP 地址 - 物理地址映射列表</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">at                      <span class="comment">//安排在特定日期和时间运行命令和程序</span></span><br><span class="line">shutdown                <span class="comment">//立即或定时关机或重启</span></span><br><span class="line">tskill                  <span class="comment">//结束进程</span></span><br><span class="line">taskkill                <span class="comment">//结束进程(比 tskill 高级，但 WinXPHome 版中无该命令)</span></span><br><span class="line">tasklist                <span class="comment">//显示进程列表(Windows XP Home Edition 中没有)</span></span><br><span class="line">sc                      <span class="comment">//系统服务设置与控制</span></span><br><span class="line">reg                     <span class="comment">//注册表控制台工具</span></span><br><span class="line">powercfg                <span class="comment">//控制系统上的电源设置</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将文件按从新到旧排列，取第一个。</span></span><br><span class="line">ls -t ws* | head <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将文件按从旧到新排列，取最后一个。</span></span><br><span class="line">ls -rt ws* | tail <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="navicat-for-MySQL-快捷键"><a href="#navicat-for-MySQL-快捷键" class="headerlink" title="navicat for MySQL 快捷键"></a>navicat for MySQL 快捷键</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ctrl+q                  <span class="comment">//打开查询窗口</span></span><br><span class="line">ctrl+/                  <span class="comment">//注释sql语句</span></span><br><span class="line">ctrl+shift +/           <span class="comment">//解除注释</span></span><br><span class="line">ctrl+r                  <span class="comment">//运行查询窗口的sql语句</span></span><br><span class="line">ctrl+shift+r            <span class="comment">//只运行选中的sql语句</span></span><br><span class="line">F6                      <span class="comment">//打开一个mysql命令行窗口</span></span><br><span class="line">ctrl+d （<span class="number">1</span>）：          <span class="comment">//查看表结构详情，包括索引 触发器，存储过程，外键，唯一键;（2）：复制一行</span></span><br><span class="line">ctrl+l                  <span class="comment">//删除一行</span></span><br><span class="line">ctrl+n                  <span class="comment">//打开一个新的查询窗口</span></span><br><span class="line">ctrl+w                  <span class="comment">//关闭一个查询窗口</span></span><br><span class="line">ctrl+tab                <span class="comment">//多窗口切换</span></span><br><span class="line"></span><br><span class="line">sql_mode 引发的执行sql文件 或者update / insert报错</span><br><span class="line">查看mysql 字符集 show variables like '%character%'</span><br></pre></td></tr></table></figure>
+
+<h3 id="批处理常用Dos命令"><a href="#批处理常用Dos命令" class="headerlink" title="批处理常用Dos命令"></a>批处理常用Dos命令</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除n天前的文件</span></span><br><span class="line"><span class="comment">//:: IIS日志文件目录</span></span><br><span class="line"><span class="built_in">set</span> log_dir=<span class="string">"C:\inetpub\logs\LogFiles"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//:: 保留日志天数</span></span><br><span class="line"><span class="built_in">set</span> bak_dat=<span class="number">15</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//:: 删除日志文件</span></span><br><span class="line">forfiles /p <span class="string">"f:\heroes\server_shipping\bin\serverlog"</span> /s /m *.* /d <span class="number">-1</span> /c <span class="string">"cmd /c del @path"</span></span><br><span class="line">forfiles /p %log_dir% /S /M *.<span class="built_in">log</span> /D -%bak_dat% /C <span class="string">"cmd /c echo 正在删除@relpath 文件… &amp; echo. &amp; del @file"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//首先，在Windows中，系统日期由以下参数获得：</span></span><br><span class="line">%date%</span><br><span class="line"><span class="comment">//系统时间则由以下参数获得：</span></span><br><span class="line">%time%</span><br><span class="line"></span><br><span class="line">echo %date%</span><br><span class="line">xshell 的删除粘贴指令 ctrl + insert 和 shift + insert</span><br><span class="line">关闭mysql操作 net stop mysql</span><br><span class="line">重启mysql操作 net restart mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="hero-server部分端口状态"><a href="#hero-server部分端口状态" class="headerlink" title="hero-server部分端口状态"></a>hero-server部分端口状态</h2><h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><p>ps:netstat 命令可以看服务器的进程间连接情况 </p>
+<p>netstat<br>参数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a              <span class="comment">//(all)显示所有选项，默认不显示LISTEN相关</span></span><br><span class="line">-p              <span class="comment">//显示建立相关链接的程序名</span></span><br><span class="line">-n              <span class="comment">//拒绝显示别名，能显示数字的全部转化成数字。</span></span><br><span class="line">-l              <span class="comment">//仅列出有在 Listen (监听) 的服务状态</span></span><br><span class="line">-t              <span class="comment">//(tcp)仅显示tcp相关选项</span></span><br><span class="line">-u              <span class="comment">//(udp)仅显示udp相关选项</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="连接情况"><a href="#连接情况" class="headerlink" title="连接情况"></a>连接情况</h3><blockquote>
+<p>netstat -t 配合 cygwin cat text.txt | grep cs -B 1<br>就可查看cs 进程 与其他进程的连接情况</p>
+</blockquote>
+<p>场外：定位某玩家时指令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">"ws*"</span> | xargs grep <span class="string">"1582180542,288096256"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">项目主要由 7 个进程组成 分别为</span></span><br><span class="line"><span class="comment">master     主服务器：所有服务器进程启动之后都会与master建立连接，由master来分配对应服务器之间的连接关系</span></span><br><span class="line"><span class="comment">fep        消息分发服务器： 服务器内部走的是socket 消息包通信，服务器与客户端走的是protobuf 协议通信，客户端与服务器之间的分发消息统一由fep来做中转</span></span><br><span class="line"><span class="comment">gate       门服务器：所有客户端首先与gate连接，同时比对版本对应与否(欸，这个比对版本的功能是我写的=.=)，版本一致之后建立通信连接</span></span><br><span class="line"><span class="comment">ls         登录服务器：主要负责用户的注册登录</span></span><br><span class="line"><span class="comment">ws         世界服务器：主要管控用户在进入战斗场景前的数据，匹配，社交，购买等持久化操作的服务器</span></span><br><span class="line"><span class="comment">match      匹配服务器：顾名思义，玩家之间相互匹配的服务器</span></span><br><span class="line"><span class="comment">cs         战斗服务器：一盘吃鸡游戏，所有玩家的操作，游戏流程都在这里，一盘游戏所有相应的数据都存在内存中.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">涉及线程:</span></span><br><span class="line"><span class="comment">从最简单的开始 </span></span><br><span class="line"><span class="comment">gate: gate进程 有4个建立的连接</span></span><br><span class="line"><span class="comment">      另外两个 一个连接 fep  ，一个连接 master </span></span><br><span class="line"><span class="comment">      相互建立连接的端口号不知道在干嘛 0 0*/</span></span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29088</span>(fep)  ESTABLISHED</span><br><span class="line"> [gate.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29085</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29086</span>  ESTABLISHED</span><br><span class="line"> [gate.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29086</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29085</span>  ESTABLISHED</span><br><span class="line"> [gate.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29087</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(master)   ESTABLISHED</span><br><span class="line"> [gate.exe]</span><br><span class="line"></span><br><span class="line">fep: </span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2100</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29106</span>(ls)  ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2100</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29112</span>(cs)  ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29082</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29083</span>  ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29083</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29082</span>  ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29084</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(master)   ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29088</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">9000</span>(gate)   ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29101</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">1000</span>(ws)   ESTABLISHED</span><br><span class="line"> [fep.exe]</span><br><span class="line"></span><br><span class="line">ls: </span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29067</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>(db)   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29068</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29073</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29074</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29079</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29080</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29103</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29104</span>(ls)  ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29104</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29103</span>(ls)  ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29105</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(master)   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29106</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">2100</span>(fep)   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29107</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">1000</span>(ws)   ESTABLISHED</span><br><span class="line"> [ls.exe]</span><br><span class="line"></span><br><span class="line">mater:</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29084</span>(fep)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29087</span>(gate)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29091</span>(match)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29098</span>(ws)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29105</span>(ls)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29111</span>(cs)  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29056</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29057</span>  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29057</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29056</span>  ESTABLISHED</span><br><span class="line"> [master.exe]</span><br><span class="line"></span><br><span class="line">match:</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">7111</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29102</span>(ws)  ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">7111</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29114</span>(cs)  ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29063</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29066</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29070</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29072</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29076</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29078</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29089</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29090</span>  ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29090</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29089</span>  ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29091</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(master)   ESTABLISHED</span><br><span class="line"> [match.exe]</span><br><span class="line"></span><br><span class="line">ws:</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">1000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29101</span>(fep)  ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">1000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29107</span>(ls)  ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">1000</span>         DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29113</span>(cs)  ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29064</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29065</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29069</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29071</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29075</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29077</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">3306</span>   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29096</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29097</span>  ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29097</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29096</span>  ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29098</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(master)   ESTABLISHED</span><br><span class="line"> [ws.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29102</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">7111</span>(match)   ESTABLISHED   <span class="comment">//控制台上输出的connect to 7111 OK</span></span><br><span class="line"> [ws.exe]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29109</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29110</span>  ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29110</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">29109</span>  ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29111</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">8000</span>(maste)   ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29112</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">2100</span>(fep)   ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29113</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">1000</span>(ws)   ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br><span class="line">  TCP    <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">29114</span>        DESKTOP<span class="number">-16</span>CKEN1:<span class="number">7111</span>(match)   ESTABLISHED</span><br><span class="line"> [cs.exe]</span><br></pre></td></tr></table></figure>
+
+<h3 id="多线程程序杂项"><a href="#多线程程序杂项" class="headerlink" title="多线程程序杂项"></a>多线程程序杂项</h3><p>涉及多线程程序涉及的时候经常会出现一些令人难以思议的事情，用堆和栈分配一个变量可能在以后的执行中产生意想不到的结果，而这个结果的表现就是内存的非法被访问，导致内存的内容被更改。 </p>
+<p>理解这个现象的两个基本概念是：在一个进程的线程共享堆区，而进程中的线程各自维持自己堆栈。<br>在 windows 等平台上，不同线程缺省使用同一个堆，所以用 C 的 malloc （或者 windows 的 GlobalAlloc）分配内存的时候是使用了同步保护的。<br>如果没有同步保护，在两个线程同时执行内存操作的时候会产生竞争条件，可能导致堆内内存管理混乱。<br>比如两个线程分配了统一块内存地址，空闲链表指针错误等。 </p>
+<p>Symbian 的线程一般使用独立的堆空间。<br>这样每个线程可以直接在自己的堆里分配和释放，可以减少同步所引入的开销。<br>当线程退出的时候，系统直接回收线程的堆空间，线程内没有释放的内存空间也不会造成进程内的内存泄漏。 </p>
+<p>但是两个线程使用共用堆的时候，就必须用 critical section 或者 mutex 进行同步保护。<br>否则程序崩溃时早晚的事。<br>如果你的线程需要在共用堆上无规则的分配和释放任何数量和类型的对象，可以定制一个自己的 allcator，在 allocator 内部使用同步保护。<br>线程直接使用这个 allocator 分配内存就可以了。<br>这相当于实现自己的 malloc，free。<br>但是更建议你重新审查一下自己的系统，因为这种情况大多数是不必要的。<br>经过良好的设计，线程的本地堆应该能够满足大多数对象的需求。<br>如果有某一类对象需要在共享堆上创建和共享，这种需求是比较合理的，可以在这个类的 new 和 delete 上实现共享保护。 </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="邱灵雨 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="邱灵雨 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 邱灵雨 的个人博客">邱灵雨</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://sabistian.cn/2019/11/19/LinuxInstructions-3/" title="Linux常用指令（三）">http://sabistian.cn/2019/11/19/LinuxInstructions-3/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 邱灵雨 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/18/LinuxInstructions-2/" rel="next" title="Linux常用指令（二）">
+                <i class="fa fa-chevron-left"></i> Linux常用指令（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/23/读书笔记/" rel="prev" title="游戏编程算法与技巧-读书笔记（一）">
+                游戏编程算法与技巧-读书笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headicon.png" alt="邱灵雨">
+            
+              <p class="site-author-name" itemprop="name">邱灵雨</p>
+              <p class="site-description motion-element" itemprop="description">灵雨既零</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sabistian" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sebistian@163.com" target="_blank" title="Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5975979965/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kuai-shen-l/activities" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用linux指令-杂项-三"><span class="nav-number">1.</span> <span class="nav-text">常用linux指令-杂项(三)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件夹管理"><span class="nav-number">1.1.</span> <span class="nav-text">文件夹管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">1.2.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络命令"><span class="nav-number">1.3.</span> <span class="nav-text">网络命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统管理"><span class="nav-number">1.4.</span> <span class="nav-text">系统管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#杂项"><span class="nav-number">1.5.</span> <span class="nav-text">杂项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#navicat-for-MySQL-快捷键"><span class="nav-number">1.5.1.</span> <span class="nav-text">navicat for MySQL 快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批处理常用Dos命令"><span class="nav-number">1.5.2.</span> <span class="nav-text">批处理常用Dos命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hero-server部分端口状态"><span class="nav-number">1.6.</span> <span class="nav-text">hero-server部分端口状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#netstat"><span class="nav-number">1.6.1.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接情况"><span class="nav-number">1.6.2.</span> <span class="nav-text">连接情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程程序杂项"><span class="nav-number">1.6.3.</span> <span class="nav-text">多线程程序杂项</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱灵雨</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
